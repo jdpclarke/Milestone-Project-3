@@ -147,6 +147,8 @@ In summary, CheckMate addresses a significant need by providing a user-friendly 
 
 - **Typography**
 
+  To complement the theme of strategic clarity and professionalism, two distinct yet complementary Google Font families have been selected for CheckMate:
+
   The ["Inter"](https://fonts.google.com/specimen/Inter) font family has been selected as the main font used throughout the whole project, with a generic sans-serif as the fallback font in any case that the font isn't being imported into the project correctly. Inter is a variable font designed specifically for user interfaces, ensuring high legibility and clarity on all screen sizes. Its clean lines and robust character set make it ideal for detailed task lists and extensive project descriptions. The variable nature of Inter also allows for precise control over its weight and other properties, ensuring optimal readability across different contexts within the application.
 
   The ["Roboto Slab"](https://fonts.google.com/specimen/Roboto+Slab) font family has been selected as the heading element font. Roboto Slab is a static font, providing a strong, geometric, and structured feel that perfectly aligns with the organised nature of CheckMate. Its distinct slab serifs give headings a clear presence and gravitas without being overly decorative, reinforcing the sense of precision and strategic planning inherent in the application's purpose. This contrast between the clean sans-serif body and the robust slab-serif headings contributes to a professional and easy-to-navigate user experience.
