@@ -162,3 +162,38 @@ This website utilises a variety of images to enhance the user experience and con
 - **Favicon:** A favicon (`assets/favicon/apple-icon.png`, `assets/favicon/favicon-32x32.png`, `assets/favicon/favicon-16x16.png`) is included to provide a visual cue for the website in browser tabs and bookmarks. This also provides a first look in to the brand of the website.
 
 All images used on the website are optimised for web performance to ensure fast loading times and a smooth user experience. Alternative text (alt text) is provided for all images to ensure accessibility for users with visual impairments and to improve SEO. The alt text descriptions are concise and descriptive, accurately conveying the content and purpose of each image.
+
+### Wireframes
+
+## 3. Features
+
+- **Secure User Authentication and Profile Management:**
+  - Provides secure registration and login functionalities, allowing users personalised access to their tasks and projects.
+  - Enables users to manage their profile details, including first name, last name, and email.
+  - Facilitates secure password changes to maintain account integrity.
+
+- **Comprehensive Task Organisation and Tracking:**
+  - Allows users to create, view, edit, and delete tasks with details such as title, description, due date, priority, and associated project.
+  - Enables users to update the status of tasks (e.g., 'To Do', 'In Progress', 'Completed', 'Blocked') for clear progress tracking.
+  - Provides visual indicators for task status and completion, making it easy to see progress at a glance.
+
+- **Robust Project Management and Collaboration:**
+  - Empowers users to create and manage multiple projects, serving as containers for related tasks.
+  - Allows for tasks to be assigned to specific users within a project.
+  - Facilitates collaboration by enabling project owners to invite other registered users to join and interact within projects based on defined roles.
+
+- **Efficient Task Filtering and Prioritisation:**
+  - Offers advanced filtering options to quickly narrow down task lists by criteria such as status, priority, assigned user, and associated project.
+  - Includes sorting capabilities to organise tasks by due date, priority, or creation date for efficient prioritisation.
+  - Ensures immediate and dynamic updates to the displayed task list upon applying filters or sorting.
+
+- **Intuitive User Interface and Feedback:**
+  - Implements clear and immediate validation for all input fields, providing consolidated alerts for missing mandatory information or invalid data.
+  - Presents a clean, well-organised layout for all task and project information, enhancing usability.
+  - Includes a "Reset" function for forms to quickly clear all input fields and start afresh.
+
+- **Responsive and Accessible Design:**
+  - The application layout seamlessly adjusts to various screen sizes aWnd orientations, guaranteeing optimal usability across desktops, laptops, tablets, and mobile phones.
+  - All interactive elements and content displays are designed to be functionally accessible and clearly visible on diverse devices.
+  - Adheres to standard web development practices to ensure basic accessibility (e.g., clear labels, sufficient colour contrast, keyboard navigability for interactive components).
+  - Maintains a clear separation of HTML structure, CSS styling, and JavaScript logic in distinct files for improved maintainability and organisation.
