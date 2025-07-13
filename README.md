@@ -86,3 +86,29 @@ In summary, CheckMate addresses a significant need by providing a user-friendly 
 - Create form handling for task creation and editing.
 - Implement CSS for visual status indicators (colours, strikethrough).
 - Add JavaScript for confirmation dialogues on deletion and potentially for dynamic status updates.
+
+#### Feature 3: Project Organisation & Collaboration
+
+**As a "CheckMate" user,** I want to create and manage projects, assign tasks within them, and invite other users to collaborate, so that I can organise larger initiatives and work effectively with a team.
+
+**Acceptance Criteria:**
+
+- Users can create new projects with a name and description.
+- Users can view a list of all projects they own or are a member of.
+- Each project view displays the tasks associated with it.
+- Project owners can invite other registered users to become members of their projects.
+- Project members can view and interact with tasks within that project based on their assigned role/permissions.
+- Projects can be marked as 'Completed' or 'Archived'.
+
+**Tasks:**
+
+- Develop Flask routes and templates for:
+- Creating new projects (e.g., /projects/new).
+- Listing projects (e.g., /projects).
+- Viewing a single project and its tasks (e.g., /projects/\<id>).
+- Adding/removing project members.
+- Implement database CRUD operations for the projects table.
+- Implement database operations for project_members (inserting new members, removing members).
+- Develop logic to filter tasks by project_id.
+- Implement a search/selection mechanism for inviting users (e.g., by username or email).
+- Define and enforce basic project roles/permissions (e.g., only owner can delete project, members can manage tasks).
