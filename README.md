@@ -29,3 +29,32 @@ CheckMate offers several advantages over current, less integrated methods. It pr
 The initial scope of CheckMate focuses on providing core task and project management functionalities: user authentication, project creation/management, task CRUD operations (create, read, update, delete), task assignment, due dates, priorities, status tracking, and basic filtering/sorting. Acknowledged limitations include the initial focus on fundamental features before expanding to more advanced collaboration tools or integrations. Potential future enhancements for CheckMate include advanced reporting and analytics, integration with calendars or communication platforms, recurring tasks, sub-tasks, file attachments, and more granular notification settings for deadlines or changes.
 
 In summary, CheckMate addresses a significant need by providing a user-friendly and accurate solution for managing tasks and projects. By simplifying this process, the tool has the potential to save time, reduce errors, improve focus, and ultimately contribute to the more efficient execution and successful completion of individual and collaborative endeavours.
+
+## 3. User Experience (UX)
+
+### User Stories
+
+#### Feature 1: Secure User Authentication & Profile Management
+
+**As a "CheckMate" user,** I want to securely register an account, log in, and manage my profile details so that I can access my personalised tasks and projects and maintain my personal information.
+
+**Acceptance Criteria:**
+
+- A registration form is present, requiring a unique username, email, and password (with confirmation).
+- Passwords are securely hashed and stored (not plain text).
+- Users can log in using their username/email and password.
+- Successful login redirects to a user dashboard/main task view.
+- Failed login attempts provide appropriate, non-revealing error messages.
+- Users can view and update their first name, last name, and email on a profile page.
+- Password change functionality is available, requiring current password verification.
+- Session management ensures secure user experience (e.g., logout functionality, session expiration).
+
+**Tasks:**
+
+- Develop Flask routes for user registration, login, and logout.
+- Implement a secure password hashing library.
+- Create HTML forms for registration, login, and profile editing.
+- Implement server-side validation for all form inputs (e.g., unique username/email, password strength, valid email format).
+- Set up Flask-Login (or similar) for session management.
+- Implement database interactions (INSERT for registration, SELECT for login, UPDATE for profile).
+- Design a user profile page with editable fields.
