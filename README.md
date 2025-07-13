@@ -112,3 +112,27 @@ In summary, CheckMate addresses a significant need by providing a user-friendly 
 - Develop logic to filter tasks by project_id.
 - Implement a search/selection mechanism for inviting users (e.g., by username or email).
 - Define and enforce basic project roles/permissions (e.g., only owner can delete project, members can manage tasks).
+
+#### Feature 4: Efficient Task Filtering & Sorting
+
+**As a "CheckMate" user,** I want to easily filter and sort tasks by various criteria (e.g., due date, priority, status, assigned user, project) so that I can quickly find and prioritise relevant tasks.
+
+**Acceptance Criteria:**
+
+- A set of filter options is available (e.g., dropdowns, checkboxes) for:
+  - Task status (To Do, In Progress, Completed, Blocked).
+  - Task priority (High, Medium, Low).
+  - Assigned user (if applicable).
+  - Associated project.
+- Users can sort tasks by due date (ascending/descending), priority, or creation date.
+- Applying filters or sorting immediately updates the displayed task list without a full page reload.
+- Multiple filters can be applied simultaneously.
+
+**Tasks:**
+
+- Implement backend Flask routes that accept query parameters for filtering and sorting.
+- Modify database queries to apply WHERE clauses for filters and ORDER BY clauses for sorting based on user input.
+- Develop frontend JavaScript to capture user selections from filter/sort controls.
+- Implement AJAX calls to the backend to fetch filtered/sorted data.
+- Update the HTML DOM dynamically with the new task list.
+- Implement CSS to visually indicate active filters.
