@@ -2,7 +2,7 @@
 
 **A comprehensive web platform providing user-friendly task and project management for individuals and teams, designed to streamline workflows and achieve goals.**
 
-![Responsive Mockup](assets/readme/mockup.png)
+![Responsive Mockup (TBC Placeholder)](assets/readme/mockup.png)
 
 ## 1. Overview
 
