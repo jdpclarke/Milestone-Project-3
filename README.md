@@ -58,3 +58,31 @@ In summary, CheckMate addresses a significant need by providing a user-friendly 
 - Set up Flask-Login (or similar) for session management.
 - Implement database interactions (INSERT for registration, SELECT for login, UPDATE for profile).
 - Design a user profile page with editable fields.
+
+#### Feature 2: Comprehensive Task Management (CRUD & Status Tracking)
+
+**As a "CheckMate" user,** I want to create, view, edit, delete, and update the status of my tasks, so that I can effectively manage my workload and track progress.
+
+**Acceptance Criteria:**
+
+- Users can create new tasks, specifying a title, description, due date, priority, and optional project association.
+- All tasks are displayed in a clear, organised list or board view.
+- Each task entry clearly shows its title, due date, priority, and current status.
+- Users can click on a task to view its full details in a dedicated view or modal.
+- Users can edit any field of an existing task.
+- Users can change a task's status (e.g., 'To Do', 'In Progress', 'Completed', 'Blocked').
+- Users can delete tasks, with a confirmation prompt to prevent accidental deletion.
+- Completed tasks are visually distinguishable (e.g., strikethrough, different background).
+
+**Tasks:**
+
+- Develop Flask routes and corresponding HTML templates for:
+  - Displaying all tasks (e.g., /tasks or main dashboard).
+  - Creating a new task (e.g., /tasks/new).
+  - Viewing a single task (e.g., /tasks/\<id>).
+  - Editing an existing task (e.g., /tasks/\<id>/edit).
+  - Deleting a task (e.g., /tasks/\<id>/delete).
+- Implement database CRUD operations for the tasks table.
+- Create form handling for task creation and editing.
+- Implement CSS for visual status indicators (colours, strikethrough).
+- Add JavaScript for confirmation dialogues on deletion and potentially for dynamic status updates.
