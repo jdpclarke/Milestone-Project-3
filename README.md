@@ -197,3 +197,17 @@ All images used on the website are optimised for web performance to ensure fast 
   - All interactive elements and content displays are designed to be functionally accessible and clearly visible on diverse devices.
   - Adheres to standard web development practices to ensure basic accessibility (e.g., clear labels, sufficient colour contrast, keyboard navigability for interactive components).
   - Maintains a clear separation of HTML structure, CSS styling, and JavaScript logic in distinct files for improved maintainability and organisation.
+
+## 4. Technology Used
+
+## 5. Installation
+
+## 6. Usage
+
+## 7. Testing
+
+## 8. Deployment
+
+## 9. Credits
+
+## 10. Future Improvements
