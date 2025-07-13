@@ -152,3 +152,13 @@ In summary, CheckMate addresses a significant need by providing a user-friendly 
   The ["Inter"](https://fonts.google.com/specimen/Inter) font family has been selected as the main font used throughout the whole project, with a generic sans-serif as the fallback font in any case that the font isn't being imported into the project correctly. Inter is a variable font designed specifically for user interfaces, ensuring high legibility and clarity on all screen sizes. Its clean lines and robust character set make it ideal for detailed task lists and extensive project descriptions. The variable nature of Inter also allows for precise control over its weight and other properties, ensuring optimal readability across different contexts within the application.
 
   The ["Roboto Slab"](https://fonts.google.com/specimen/Roboto+Slab) font family has been selected as the heading element font. Roboto Slab is a static font, providing a strong, geometric, and structured feel that perfectly aligns with the organised nature of CheckMate. Its distinct slab serifs give headings a clear presence and gravitas without being overly decorative, reinforcing the sense of precision and strategic planning inherent in the application's purpose. This contrast between the clean sans-serif body and the robust slab-serif headings contributes to a professional and easy-to-navigate user experience.
+
+### Imagery
+
+This website utilises a variety of images to enhance the user experience and convey information effectively. The images serve several purposes:
+
+- **Branding:** The logo (`assets/images/logo.png`, `assets/images/logo-with-text.png`) is used in places like the navigation bar and at login/registration to reinforce brand identity and provide a consistent visual element throughout the site.
+
+- **Favicon:** A favicon (`assets/favicon/apple-icon.png`, `assets/favicon/favicon-32x32.png`, `assets/favicon/favicon-16x16.png`) is included to provide a visual cue for the website in browser tabs and bookmarks. This also provides a first look in to the brand of the website.
+
+All images used on the website are optimised for web performance to ensure fast loading times and a smooth user experience. Alternative text (alt text) is provided for all images to ensure accessibility for users with visual impairments and to improve SEO. The alt text descriptions are concise and descriptive, accurately conveying the content and purpose of each image.
