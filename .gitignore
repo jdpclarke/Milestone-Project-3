@@ -7,5 +7,27 @@ __pycache__/
 node_modules/
 .github/
 cloudinary_python.txt
-.venv
-env.py
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+*.env # For python-dotenv
+.pytest_cache/
+.mypy_cache/
+
+
+# Logs
+*.log
+
+# Database
+*.db
+*.sqlite3
+
+# OS generated files
+.DS_Store # macOS
+Thumbs.db # Windows
