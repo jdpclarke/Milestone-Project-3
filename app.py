@@ -300,12 +300,15 @@ def edit_task(task_id):
 def delete_task(task_id):
     """Deletes a task from the database."""
     task = Task.query.get_or_404(task_id)
-
+    
     # Ensure only the assignee or project owner can delete the task
     if task.assignee != current_user and task.project.owner != current_user:
         flash("You do not have permission to delete this task.", "danger")
         return redirect(url_for("dashboard"))
-
+        
+    # Get the project_id before deleting the task
+    project_id = task.project.id
+    
     try:
         db.session.delete(task)
         db.session.commit()
@@ -314,7 +317,7 @@ def delete_task(task_id):
         db.session.rollback()
         flash(f"An error occurred while deleting the task: {e}", "danger")
 
-    return redirect(url_for('project_details', project_id=task.project.id))
+    return redirect(url_for('project_details', project_id=project_id))
 
 
 # Run the app
