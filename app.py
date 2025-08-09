@@ -1,5 +1,8 @@
 # app.py
 import os
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask import (
     Flask, render_template, request, redirect, url_for, flash
 )
@@ -52,6 +55,7 @@ def index():
 
 
 # User registration route
+@app.route("/register", methods=["GET", "POST"])
 def register():
     """
     Handles user registration.
@@ -89,6 +93,7 @@ def register():
         return redirect(url_for("login"))
 
     return render_template("register.html")
+pass
 
 
 # User login route
@@ -118,6 +123,7 @@ def login():
                   "danger")
 
     return render_template("login.html")
+pass
 
 
 # User logout route
