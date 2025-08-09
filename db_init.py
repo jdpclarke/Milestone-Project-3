@@ -1,5 +1,5 @@
 from app import app, db
-from models import User, Project, Task # Import models
+from models import User, Project, Task  # Import models
 
 # Ensure the Flask app context is pushed
 # This is necessary when running Flask-SQLAlchemy operations outside the main app.run()
