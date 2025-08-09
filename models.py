@@ -4,6 +4,7 @@ from flask_login import UserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 # User model for authentication and profiles
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -31,6 +32,7 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'<User {self.username}>'
 
+
 # Project model for organising tasks
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -45,6 +47,7 @@ class Project(db.Model):
 
     def __repr__(self):
         return f'<Project {self.name}>'
+
 
 # Task model for individual items within a project
 class Task(db.Model):
