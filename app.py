@@ -173,7 +173,7 @@ def add_project():
     return render_template("add_project.html")
 
 
-#Project Details route
+# Project Details route
 @app.route("/projects/<int:project_id>")
 @login_required
 def project_details(project_id):
@@ -185,6 +185,36 @@ def project_details(project_id):
         return redirect(url_for('dashboard'))
 
     return render_template("project_details.html", project=project)
+
+
+# Project Delete route
+@app.route("/delete_project/<int:project_id>", methods=["POST"])
+@login_required
+def delete_project(project_id):
+    """Deletes a project from the database."""
+    project = Project.query.get_or_404(project_id)
+
+    # Ensure only the owner can delete the project
+    if project.owner != current_user:
+        flash("You do not have permission to delete this project.", "danger")
+        return redirect(url_for("dashboard"))
+
+    try:
+        # Delete all tasks associated with the project first
+        # to avoid a foreign key constraint error.
+        for task in project.tasks.all():
+            db.session.delete(task)
+
+        # Now delete the project itself
+        db.session.delete(project)
+        db.session.commit()
+
+        flash(f"Project '{project.name}' and its tasks have been deleted.", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash(f"An error occurred while deleting the project: {e}", "danger")
+
+    return redirect(url_for("dashboard"))
 
 
 # Run the app
