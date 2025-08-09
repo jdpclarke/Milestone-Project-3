@@ -12,9 +12,14 @@ class User(UserMixin, db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Relationship: A user can create many projects
-    projects = db.relationship('Project', backref='owner', lazy='dynamic')
+    projects = db.relationship(
+        'Project', backref='owner', lazy='dynamic'
+    )
     # Relationship: A user can be assigned many tasks
-    assigned_tasks = db.relationship('Task', foreign_keys='Task.assigned_to_id', backref='assignee', lazy='dynamic')
+    assigned_tasks = db.relationship(
+        'Task', foreign_keys='Task.assigned_to_id',
+        backref='assignee', lazy='dynamic'
+    )
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -31,7 +36,8 @@ class Project(db.Model):
     name = db.Column(db.String(128), nullable=False)
     description = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) # Creator of the project
+    # Creator of the project
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     # Relationship: A project can have many tasks
     tasks = db.relationship('Task', backref='project', lazy='dynamic')
@@ -44,12 +50,16 @@ class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128), nullable=False)
     description = db.Column(db.Text)
-    status = db.Column(db.String(64), default='To Do', nullable=False) # e.g., 'To Do', 'In Progress', 'Done'
-    priority = db.Column(db.String(64), default='Medium', nullable=False) # e.g., 'Low', 'Medium', 'High'
+    # e.g., 'To Do', 'In Progress', 'Done'
+    status = db.Column(db.String(64), default='To Do', nullable=False)
+    # e.g., 'Low', 'Medium', 'High'
+    priority = db.Column(db.String(64), default='Medium', nullable=False)
     due_date = db.Column(db.DateTime)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False) # Task belongs to a project
-    assigned_to_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) # Task can be assigned to a user
+    # Task belongs to a project
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    # Task can be assigned to a user
+    assigned_to_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
     def __repr__(self):
         return f'<Task {self.title}>'
