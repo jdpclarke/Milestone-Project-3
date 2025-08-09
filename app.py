@@ -48,7 +48,8 @@ def load_user(user_id):
 def index():
     return "<h1>Hello, CheckMate! Your Flask app is running!</h1>"
 
-# After the index route, add the register and login routes
+# Register and Login Routes
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
@@ -68,15 +69,12 @@ def register():
             flash("Username or Email already exists. Please choose a different one.", "danger")
             return redirect(url_for("register"))
 
-        # Hash the password for security using Flask-Bcrypt
-        hashed_password = bcrypt.generate_password_hash(password_from_form).decode("utf-8")
-
-        # Create a new User object
+        # Create a new User object and set the password using the method from models.py
         new_user = User(
             username=username_from_form,
-            email=email_from_form,
-            password_hash=hashed_password,
+            email=email_from_form
         )
+        new_user.set_password(password_from_form)
 
         # Add the new user to the database
         db.session.add(new_user)
@@ -87,6 +85,31 @@ def register():
         return redirect(url_for("login"))
 
     return render_template("register.html")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if current_user.is_authenticated:
+        # Redirect to the dashboard if the user is already logged in
+        return redirect(url_for("index"))
+
+    if request.method == "POST":
+        username_from_form = request.form.get("username")
+        password_from_form = request.form.get("password")
+
+        # Find the user by username
+        user = User.query.filter_by(username=username_from_form).first()
+
+        # Check if the user exists and the password is correct
+        if user and user.check_password(password_from_form):
+            login_user(user)
+            flash(f"Logged in successfully as {user.username}.", "success")
+            # Redirect to the next page, or the index page if no next page is specified
+            next_page = request.args.get("next")
+            return redirect(next_page or url_for("index"))
+        else:
+            flash("Login Unsuccessful. Please check username and password.", "danger")
+
+    return render_template("login.html")
 
 # Run the app
 if __name__ == '__main__':
