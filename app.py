@@ -225,6 +225,8 @@ def add_task(project_id):
     Handles adding a new task to a specific project.
     """
     project = Project.query.get_or_404(project_id)
+    # Fetch all users to populate the assignee dropdown
+    users = User.query.order_by(User.username).all()
 
     # Ensure only the owner can add tasks to the project
     if project.owner != current_user:
@@ -238,9 +240,13 @@ def add_task(project_id):
         due_date_str = request.form.get("due_date")
         status = request.form.get("status")
         priority = request.form.get("priority")
+        assigned_to_id = request.form.get("assigned_to_id")
 
         # Convert due_date string to a datetime object, if it exists
         due_date = datetime.strptime(due_date_str, '%Y-%m-%d') if due_date_str else None
+
+        # Get the assigned user object based on the ID from the form
+        assigned_to = User.query.get(assigned_to_id)
 
         # Create a new Task object
         new_task = Task(
@@ -250,7 +256,7 @@ def add_task(project_id):
             priority=priority,
             due_date=due_date,
             project=project,
-            assignee=current_user
+            assignee=assigned_to
         )
 
         db.session.add(new_task)
@@ -259,7 +265,7 @@ def add_task(project_id):
         flash("Task created successfully!", "success")
         return redirect(url_for('project_details', project_id=project.id))
 
-    return render_template("add_task.html", project=project)
+    return render_template("add_task.html", project=project, users=users)
 
 
 # Edit Task route
@@ -300,15 +306,15 @@ def edit_task(task_id):
 def delete_task(task_id):
     """Deletes a task from the database."""
     task = Task.query.get_or_404(task_id)
-    
+
     # Ensure only the assignee or project owner can delete the task
     if task.assignee != current_user and task.project.owner != current_user:
         flash("You do not have permission to delete this task.", "danger")
         return redirect(url_for("dashboard"))
-        
+
     # Get the project_id before deleting the task
     project_id = task.project.id
-    
+
     try:
         db.session.delete(task)
         db.session.commit()
