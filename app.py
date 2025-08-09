@@ -14,7 +14,7 @@ from datetime import datetime
 
 # Local imports
 from db import db
-from models import User
+from models import User, Project, Task
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -142,6 +142,33 @@ def logout():
 def dashboard():
     """Renders the user dashboard."""
     return render_template("dashboard.html")
+
+
+# Add Project route
+@app.route("/add_project", methods=["GET", "POST"])
+@login_required
+def add_project():
+    """Handles adding a new project for the current user."""
+    if request.method == "POST":
+        # Get data from the form
+        name_from_form = request.form.get("name")
+        description_from_form = request.form.get("description")
+
+        # Create a new Project object
+        new_project = Project(
+            name=name_from_form,
+            description=description_from_form,
+            owner=current_user
+        )
+
+        # Add the new project to the database
+        db.session.add(new_project)
+        db.session.commit()
+
+        flash("Project created successfully!", "success")
+        return redirect(url_for("dashboard"))
+
+    return render_template("add_project.html")
 
 
 # Run the app
