@@ -1,0 +1,27 @@
+{% extends "master.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>{{ project.name }}</h2>
+        <p>{{ project.description }}</p>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <h4>Tasks</h4>
+        {% if project.tasks %}
+            <ul class="list-group">
+            {% for task in project.tasks %}
+                <li class="list-group-item">
+                    {{ task.title }} - Status: {{ task.status }} - Priority: {{ task.priority }}
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No tasks found for this project. Start by adding one!</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
