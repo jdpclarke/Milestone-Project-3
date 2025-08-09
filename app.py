@@ -48,6 +48,46 @@ def load_user(user_id):
 def index():
     return "<h1>Hello, CheckMate! Your Flask app is running!</h1>"
 
+# After the index route, add the register and login routes
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if current_user.is_authenticated:
+        # Redirect to the dashboard if the user is already logged in
+        return redirect(url_for("index"))
+
+    if request.method == "POST":
+        # Get data from the registration form
+        username_from_form = request.form.get("username")
+        email_from_form = request.form.get("email")
+        password_from_form = request.form.get("password")
+
+        # Check if username or email already exists
+        existing_user_by_username = User.query.filter_by(username=username_from_form).first()
+        existing_user_by_email = User.query.filter_by(email=email_from_form).first()
+        if existing_user_by_username or existing_user_by_email:
+            flash("Username or Email already exists. Please choose a different one.", "danger")
+            return redirect(url_for("register"))
+
+        # Hash the password for security using Flask-Bcrypt
+        hashed_password = bcrypt.generate_password_hash(password_from_form).decode("utf-8")
+
+        # Create a new User object
+        new_user = User(
+            username=username_from_form,
+            email=email_from_form,
+            password_hash=hashed_password,
+        )
+
+        # Add the new user to the database
+        db.session.add(new_user)
+        db.session.commit()
+
+        # Flash a success message and redirect to the login page
+        flash("Registration successful! Please log in.", "success")
+        return redirect(url_for("login"))
+
+    return render_template("register.html")
+
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)
