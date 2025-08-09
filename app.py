@@ -217,6 +217,51 @@ def delete_project(project_id):
     return redirect(url_for("dashboard"))
 
 
+# Add Task route
+@app.route("/projects/<int:project_id>/add_task", methods=["GET", "POST"])
+@login_required
+def add_task(project_id):
+    """
+    Handles adding a new task to a specific project.
+    """
+    project = Project.query.get_or_404(project_id)
+
+    # Ensure only the owner can add tasks to the project
+    if project.owner != current_user:
+        flash("You do not have permission to add a task to this project.", "danger")
+        return redirect(url_for('dashboard'))
+
+    if request.method == "POST":
+        # Get data from the form
+        title = request.form.get("title")
+        description = request.form.get("description")
+        due_date_str = request.form.get("due_date")
+        status = request.form.get("status")
+        priority = request.form.get("priority")
+
+        # Convert due_date string to a datetime object, if it exists
+        due_date = datetime.strptime(due_date_str, '%Y-%m-%d') if due_date_str else None
+
+        # Create a new Task object
+        new_task = Task(
+            title=title,
+            description=description,
+            status=status,
+            priority=priority,
+            due_date=due_date,
+            project=project,
+            assignee=current_user
+        )
+
+        db.session.add(new_task)
+        db.session.commit()
+
+        flash("Task created successfully!", "success")
+        return redirect(url_for('project_details', project_id=project.id))
+
+    return render_template("add_task.html", project=project)
+
+
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)
