@@ -51,6 +51,8 @@ def load_user(user_id):
 @app.route("/")
 def index():
     """Renders the main index page."""
+    if current_user.is_authenticated:
+        return redirect(url_for("dashboard"))
     return render_template("index.html")
 
 
@@ -93,7 +95,6 @@ def register():
         return redirect(url_for("login"))
 
     return render_template("register.html")
-pass
 
 
 # User login route
@@ -123,7 +124,6 @@ def login():
                   "danger")
 
     return render_template("login.html")
-pass
 
 
 # User logout route
@@ -134,6 +134,14 @@ def logout():
     logout_user()
     flash("You have been logged out.", "info")
     return redirect(url_for("index"))
+
+
+# Dashboard route
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    """Renders the user dashboard."""
+    return render_template("dashboard.html")
 
 
 # Run the app

@@ -6,7 +6,7 @@
         <h1 class="display-4">Welcome back, {{ current_user.username }}!</h1>
         <p class="lead">You are logged in.</p>
         <hr class="my-4">
-        <a class="btn btn-primary btn-lg" href="#" role="button">Go to your Dashboard</a>
+        <a class="btn btn-primary btn-lg" href="{{ url_for('dashboard') }}" role="button">Go to your Dashboard</a>
     {% else %}
         <h1 class="display-4">Welcome to CheckMate</h1>
         <p class="lead">Your personal task management system.</p>
