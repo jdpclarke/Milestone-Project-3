@@ -12,6 +12,8 @@ from flask_login import (
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
+from models import User
+
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -32,20 +34,12 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 
-# Dummy User Loader (will be replaced with actual database query later)
-# This is required by Flask-Login even without a User model
-class User(UserMixin):
-    def get_id(self):
-        return "1"  # Return a dummy ID for now
-
-
+# User Loader
 @login_manager.user_loader
 def load_user(user_id):
-    # In a real app, this would query your database for a user by ID
-    # For now, this will return a dummy user if it's the dummy ID
-    if user_id == "1":
-        return User()
-    return None
+    # The User.query.get() method is a Flask-SQLAlchemy shortcut
+    # to get a record by its primary key (ID).
+    return User.query.get(int(user_id))
 
 
 # --- Routes ---
@@ -53,7 +47,6 @@ def load_user(user_id):
 @app.route('/')
 def index():
     return "<h1>Hello, CheckMate! Your Flask app is running!</h1>"
-
 
 # Run the app
 if __name__ == '__main__':
