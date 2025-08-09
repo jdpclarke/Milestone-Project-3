@@ -173,6 +173,20 @@ def add_project():
     return render_template("add_project.html")
 
 
+#Project Details route
+@app.route("/projects/<int:project_id>")
+@login_required
+def project_details(project_id):
+    """Displays the details of a single project."""
+    project = Project.query.get_or_404(project_id)
+    # Ensure that only the owner can view their project details
+    if project.owner != current_user:
+        flash("You do not have permission to view this project.", "danger")
+        return redirect(url_for('dashboard'))
+
+    return render_template("project_details.html", project=project)
+
+
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)
