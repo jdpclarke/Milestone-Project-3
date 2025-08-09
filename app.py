@@ -332,6 +332,14 @@ def delete_task(task_id):
     return redirect(url_for('project_details', project_id=project_id))
 
 
+# User Profile route
+@app.route("/profile")
+@login_required
+def profile():
+    """Displays the current user's profile page."""
+    return render_template("profile.html", user=current_user)
+
+
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)
