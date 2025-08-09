@@ -140,8 +140,10 @@ def logout():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    """Renders the user dashboard."""
-    return render_template("dashboard.html")
+    """Renders the user dashboard with their projects."""
+    user_projects = Project.query.filter_by(
+        owner=current_user).order_by(Project.created_at.desc()).all()
+    return render_template("dashboard.html", projects=user_projects)
 
 
 # Add Project route
