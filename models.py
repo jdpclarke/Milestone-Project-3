@@ -1,4 +1,5 @@
-from app import db  # Import the db object from your app.py
+# models.py
+from db import db
 from flask_login import UserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -56,10 +57,12 @@ class Task(db.Model):
     priority = db.Column(db.String(64), default='Medium', nullable=False)
     due_date = db.Column(db.DateTime)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    # Task belongs to a project
-    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
-    # Task can be assigned to a user
-    assigned_to_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+
+    # Relationship: A task belongs to a project
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'),
+                           nullable=False)
+    # Relationship: A task is assigned to a user
+    assigned_to_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return f'<Task {self.title}>'

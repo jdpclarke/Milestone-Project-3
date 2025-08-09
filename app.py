@@ -1,18 +1,16 @@
+# app.py
 import os
-from dotenv import load_dotenv
-load_dotenv()
-
-
 from flask import (
     Flask, render_template, request, redirect, url_for, flash
 )
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import (
-    LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+    LoginManager, login_user, logout_user, login_required, current_user
 )
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
+# Local imports
+from db import db
 from models import User
 
 # Initialize Flask app
@@ -23,8 +21,8 @@ app = Flask(__name__)
 app.config.from_object('config.Config')
 
 
-# Initialize SQLAlchemy (will be used later for models)
-db = SQLAlchemy(app)
+# Initialize SQLAlchemy
+db.init_app(app)
 
 
 # Initialize Flask-Login (will be used later for user management)
@@ -37,8 +35,10 @@ login_manager.login_view = 'login'
 # User Loader
 @login_manager.user_loader
 def load_user(user_id):
-    # The User.query.get() method is a Flask-SQLAlchemy shortcut
-    # to get a record by its primary key (ID).
+    """
+    Given a user ID, return the corresponding User object.
+    This function is required by Flask-Login.
+    """
     return User.query.get(int(user_id))
 
 
@@ -52,7 +52,6 @@ def index():
 
 
 # User registration route
-@app.route("/register", methods=["GET", "POST"])
 def register():
     """
     Handles user registration.
@@ -129,6 +128,7 @@ def logout():
     logout_user()
     flash("You have been logged out.", "info")
     return redirect(url_for("index"))
+
 
 # Run the app
 if __name__ == '__main__':
