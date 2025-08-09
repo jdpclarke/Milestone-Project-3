@@ -33,6 +33,16 @@
                     <option value="High" {% if task.priority == 'High' %}selected{% endif %}>High</option>
                 </select>
             </div>
+            <div class="form-group">
+                <label for="assigned_to_id">Assign To</label>
+                <select class="form-control" id="assigned_to_id" name="assigned_to_id">
+                    {% for user in users %}
+                        <option value="{{ user.id }}" {% if user.id == task.assignee.id %}selected{% endif %}>
+                            {{ user.username }}
+                         </option>
+                    {% endfor %}
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary btn-block">Update Task</button>
         </form>
     </div>
