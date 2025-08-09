@@ -262,6 +262,38 @@ def add_task(project_id):
     return render_template("add_task.html", project=project)
 
 
+# Edit Task route
+@app.route("/edit_task/<int:task_id>", methods=["GET", "POST"])
+@login_required
+def edit_task(task_id):
+    """
+    Handles editing an existing task.
+    """
+    task = Task.query.get_or_404(task_id)
+
+    # Ensure only the assignee or project owner can edit the task
+    if task.assignee != current_user and task.project.owner != current_user:
+        flash("You do not have permission to edit this task.", "danger")
+        return redirect(url_for('dashboard'))
+
+    if request.method == "POST":
+        # Update the task object with form data
+        task.title = request.form.get("title")
+        task.description = request.form.get("description")
+        due_date_str = request.form.get("due_date")
+        task.status = request.form.get("status")
+        task.priority = request.form.get("priority")
+
+        # Convert due_date string to a datetime object, if it exists
+        task.due_date = datetime.strptime(due_date_str, '%Y-%m-%d') if due_date_str else None
+
+        db.session.commit()
+        flash("Task updated successfully!", "success")
+        return redirect(url_for('project_details', project_id=task.project.id))
+
+    return render_template("edit_task.html", task=task)
+
+
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)
