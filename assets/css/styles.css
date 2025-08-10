@@ -94,3 +94,18 @@ h6 {
   border: 1px solid var(--color-silver);
   box-shadow: none;
 }
+
+/* Button Styling */
+.btn-primary {
+    background-color: var(--color-primary-action-blue);
+    border-color: var(--color-primary-action-blue);
+    font-weight: 500;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #357bd8; /* Lighter Blue that Primary Action Blue */
+    border-color: #357bd8; /* Lighter Blue that Primary Action Blue */
+}
+
