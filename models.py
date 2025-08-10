@@ -5,21 +5,14 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-# This is the association table for the many-to-many relationship
-# between users and projects.
-project_members = db.Table(
-    'project_members',
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
-    db.Column('project_id', db.Integer, db.ForeignKey('project.id'), primary_key=True)
-)
-
-
 # User model for authentication and profiles
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
+    first_name = db.Column(db.String(64), nullable=True)
+    last_name = db.Column(db.String(64), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Relationship: A user can create many projects
@@ -30,11 +23,6 @@ class User(UserMixin, db.Model):
     assigned_tasks = db.relationship(
         'Task', foreign_keys='Task.assigned_to_id',
         backref='assignee', lazy='dynamic'
-    )
-
-    # Relationship: A user can be a member of many projects
-    member_of_projects = db.relationship(
-        'Project', secondary=project_members, backref=db.backref('members', lazy='dynamic')
     )
 
     def set_password(self, password):
@@ -74,10 +62,12 @@ class Task(db.Model):
     priority = db.Column(db.String(64), default='Medium', nullable=False)
     due_date = db.Column(db.DateTime)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    # Foreign key for the project this task belongs to
-    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
-    # Foreign key for the user assigned to this task
-    assigned_to_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    # Relationship: A task belongs to a project
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'),
+                           nullable=False)
+    # Relationship: A task is assigned to a user
+    assigned_to_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return f'<Task {self.title}>'
