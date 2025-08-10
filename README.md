@@ -70,9 +70,8 @@ In summary, CheckMate addresses a significant need by providing a user-friendly 
 - Each task entry clearly shows its title, due date, priority, and current status.
 - Users can click on a task to view its full details in a dedicated view or modal.
 - Users can edit any field of an existing task.
-- Users can change a task's status (e.g., 'To Do', 'In Progress', 'Completed', 'Blocked').
+- Users can change a task's status (e.g., 'To Do', 'In Progress', 'Completed').
 - Users can delete tasks, with a confirmation prompt to prevent accidental deletion.
-- Completed tasks are visually distinguishable (e.g., strikethrough, different background).
 
 **Tasks:**
 
@@ -84,8 +83,6 @@ In summary, CheckMate addresses a significant need by providing a user-friendly 
   - Deleting a task (e.g., /tasks/\<id>/delete).
 - Implement database CRUD operations for the tasks table.
 - Create form handling for task creation and editing.
-- Implement CSS for visual status indicators (colours, strikethrough).
-- Add JavaScript for confirmation dialogues on deletion and potentially for dynamic status updates.
 
 #### Feature 3: Project Organisation & Collaboration
 
