@@ -33,12 +33,35 @@ body {
   margin-bottom: 2rem;
 }
 
-.navbar-brand, .nav-link {
-    font-family: 'Roboto Slab', serif;
-    font-weight: 700;
-    color: var(--color-wild-sand) !important;
+.navbar-brand,
+.nav-link {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  color: var(--color-wild-sand) !important;
 }
 
 .nav-link:hover {
-    color: var(--color-primary-action-blue) !important;
+  color: var(--color-primary-action-blue) !important;
+}
+
+/* Main Container and Page Titles */
+.container {
+  max-width: 1200px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  color: var(--color-limed-spruce);
+}
+
+.page-header {
+  border-bottom: 2px solid var(--color-mercury);
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
 }
