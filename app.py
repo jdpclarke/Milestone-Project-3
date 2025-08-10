@@ -423,11 +423,11 @@ def change_password():
         if not current_password or not new_password or not confirm_new_password:
             flash("All password fields are required.", "danger")
             return redirect(url_for("change_password"))
-            
+
         if not current_user.check_password(current_password):
             flash("Incorrect current password.", "danger")
             return redirect(url_for("change_password"))
-        
+
         # New validation check
         if new_password != confirm_new_password:
             flash("New password and confirm new password do not match.", "danger")
