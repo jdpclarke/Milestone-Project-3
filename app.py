@@ -436,7 +436,7 @@ def change_password():
 
 
 # Edit Profile route
-@app.route("/profile/edit", methods=["GET", "POST"])
+@app.route("/edit-profile", methods=["GET", "POST"])
 @login_required
 def edit_profile():
     """
@@ -445,6 +445,8 @@ def edit_profile():
     if request.method == "POST":
         new_username = request.form.get("username")
         new_email = request.form.get("email")
+        new_first_name = request.form.get("first_name")
+        new_last_name = request.form.get("last_name")
 
         # --- VALIDATION ---
         if not new_username or not new_email:
@@ -466,6 +468,8 @@ def edit_profile():
         # Update the user's information
         current_user.username = new_username
         current_user.email = new_email
+        current_user.first_name = new_first_name
+        current_user.last_name = new_last_name
         db.session.commit()
         flash("Profile updated successfully!", "success")
         return redirect(url_for("profile"))
