@@ -64,38 +64,43 @@ def index():
 def register():
     """
     Handles user registration.
-    Displays the registration form on GET request.
-    Processes the form data and creates a new user on POST request.
     """
     if current_user.is_authenticated:
-        return redirect(url_for("index"))
+        return redirect(url_for('dashboard'))
 
-    if request.method == "POST":
-        username_from_form = request.form.get("username")
-        email_from_form = request.form.get("email")
-        password_from_form = request.form.get("password")
+    if request.method == 'POST':
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
 
-        existing_user_by_username = User.query.filter_by(
-            username=username_from_form).first()
-        existing_user_by_email = User.query.filter_by(
-            email=email_from_form).first()
+        # --- VALIDATION ---
+        if not first_name or not last_name or not username or not email or not password:
+            flash("All fields are required.", "danger")
+            return redirect(url_for('register'))
 
-        if existing_user_by_username or existing_user_by_email:
-            flash("Username or Email already exists. Please choose a different one.",
-                  "danger")
-            return redirect(url_for("register"))
+        if User.query.filter_by(username=username).first():
+            flash("Username already exists. Please choose a different one.", "danger")
+            return redirect(url_for('register'))
 
+        if User.query.filter_by(email=email).first():
+            flash("Email already exists. Please use a different email address.", "danger")
+            return redirect(url_for('register'))
+
+        # Create a new user instance and add to the database
         new_user = User(
-            username=username_from_form,
-            email=email_from_form
+            first_name=first_name,
+            last_name=last_name,
+            username=username,
+            email=email
         )
-        new_user.set_password(password_from_form)
-
+        new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()
 
-        flash("Registration successful! Please log in.", "success")
-        return redirect(url_for("login"))
+        flash("Registration successful! You can now log in.", "success")
+        return redirect(url_for('login'))
 
     return render_template("register.html")
 
