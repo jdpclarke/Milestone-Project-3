@@ -18,3 +18,9 @@
   --color-warning-yellow: #ffd700; /* Gold */
   --color-danger-red: #B22222; /*Firebrick */
 }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-wild-sand);
+    color: var(--color-limed-spruce);
+}
