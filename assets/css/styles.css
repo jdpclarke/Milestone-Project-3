@@ -188,3 +188,10 @@ h6 {
   font-size: 0.75rem;
   color: var(--color-boulder);
 }
+
+/* Project Cards on Dashboard */
+.project-card {
+    background-color: var(--color-mercury);
+    border-left: 5px solid var(--color-primary-action-blue);
+    margin-bottom: 1.5rem;
+}
