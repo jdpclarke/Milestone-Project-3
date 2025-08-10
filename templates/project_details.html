@@ -19,34 +19,35 @@
     </div>
 </div>
 
-<!-- Sorting and Filtering controls -->
+<!-- Sorting controls -->
 <div class="row mb-4">
     <div class="col">
-        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
             <a href="{{ url_for('add_task', project_id=project.id) }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Add New Task
             </a>
-            <div class="d-flex align-items-center gap-2">
-                <!-- Filtering Buttons -->
-                <a href="{{ url_for('project_details', project_id=project.id, sort_by=sort_by, status='all') }}"
-                    class="btn {% if status_filter == 'all' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">All</a>
-                <a href="{{ url_for('project_details', project_id=project.id, sort_by=sort_by, status='To Do') }}"
-                    class="btn {% if status_filter == 'To Do' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">To Do</a>
-                <a href="{{ url_for('project_details', project_id=project.id, sort_by=sort_by, status='In Progress') }}"
-                    class="btn {% if status_filter == 'In Progress' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">In Progress</a>
-                <a href="{{ url_for('project_details', project_id=project.id, sort_by=sort_by, status='Done') }}"
-                    class="btn {% if status_filter == 'Done' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">Done</a>
 
-                <!-- Sorting Dropdown -->
-                <div class="dropdown">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-sort"></i> Sort By: {{ sort_by.replace('_', ' ').title() }}
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="sortDropdown">
-                        <li><a class="dropdown-item" href="{{ url_for('project_details', project_id=project.id, status=status_filter, sort_by='due_date') }}">Due Date</a></li>
-                        <li><a class="dropdown-item" href="{{ url_for('project_details', project_id=project.id, status=status_filter, sort_by='priority') }}">Priority</a></li>
-                        <li><a class="dropdown-item" href="{{ url_for('project_details', project_id=project.id, status=status_filter, sort_by='created_at') }}">Creation Date</a></li>
-                    </ul>
+            <div class="d-flex align-items-center gap-2">
+                <!-- Sort By Buttons -->
+                <div class="btn-group" role="group" aria-label="Sort by options">
+                    <a href="{{ url_for('project_details', project_id=project.id, sort_by='created_at', sort_order=sort_order) }}"
+                        class="btn {% if sort_by == 'created_at' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">Creation Date</a>
+                    <a href="{{ url_for('project_details', project_id=project.id, sort_by='due_date', sort_order=sort_order) }}"
+                        class="btn {% if sort_by == 'due_date' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">Due Date</a>
+                    <a href="{{ url_for('project_details', project_id=project.id, sort_by='priority', sort_order=sort_order) }}"
+                        class="btn {% if sort_by == 'priority' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">Priority</a>
+                </div>
+
+                <!-- Sort Order Buttons -->
+                <div class="btn-group" role="group" aria-label="Sort order options">
+                    <a href="{{ url_for('project_details', project_id=project.id, sort_by=sort_by, sort_order='asc') }}"
+                        class="btn {% if sort_order == 'asc' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm" title="Ascending">
+                        <i class="fas fa-arrow-up"></i>
+                    </a>
+                    <a href="{{ url_for('project_details', project_id=project.id, sort_by=sort_by, sort_order='desc') }}"
+                        class="btn {% if sort_order == 'desc' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm" title="Descending">
+                        <i class="fas fa-arrow-down"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -58,7 +59,7 @@
     <div class="col-md-4 mb-3">
         <div class="kanban-column">
             <div class="kanban-column-header">To Do</div>
-            {% for task in tasks if task.status == 'To Do' %}
+            {% for task in tasks_todo %}
             <div class="card task-card" data-status="To Do">
                 <div class="card-body">
                     <h6 class="card-title">{{ task.title }}</h6>
@@ -89,7 +90,7 @@
     <div class="col-md-4 mb-3">
         <div class="kanban-column">
             <div class="kanban-column-header">In Progress</div>
-            {% for task in tasks if task.status == 'In Progress' %}
+            {% for task in tasks_in_progress %}
             <div class="card task-card" data-status="In Progress">
                 <div class="card-body">
                     <h6 class="card-title">{{ task.title }}</h6>
@@ -120,7 +121,7 @@
     <div class="col-md-4 mb-3">
         <div class="kanban-column">
             <div class="kanban-column-header">Done</div>
-            {% for task in tasks if task.status == 'Done' %}
+            {% for task in tasks_done %}
             <div class="card task-card" data-status="Done">
                 <div class="card-body">
                     <h6 class="card-title">{{ task.title }}</h6>

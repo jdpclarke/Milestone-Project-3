@@ -110,38 +110,36 @@ def project_details(project_id):
         flash("You do not have permission to view this project.", "danger")
         return redirect(url_for('dashboard'))
 
-    # Get sorting and filtering parameters from the URL
+    # Get sorting parameters from the URL
     sort_by = request.args.get('sort_by', 'created_at')
-    status_filter = request.args.get('status', 'all')
-
-    # Query tasks for the project
-    tasks_query = Task.query.filter_by(project_id=project_id)
-
-    # Filter tasks by status if a specific status is provided
-    if status_filter != 'all':
-        tasks_query = tasks_query.filter_by(status=status_filter)
+    sort_order = request.args.get('sort_order', 'desc')
 
     # Get all tasks for the project and then sort them
-    all_tasks = tasks_query.all()
+    all_tasks = project.tasks.all()
 
-    # Sort the tasks based on the 'sort_by' parameter
+    # Sort the tasks based on the 'sort_by' and 'sort_order' parameter
     if sort_by == 'due_date':
-        # Sort by due date, placing tasks with no due date at the end
-        all_tasks.sort(key=lambda x: (x.due_date is None, x.due_date))
+        all_tasks.sort(key=lambda x: (x.due_date is None, x.due_date), reverse=(sort_order == 'desc'))
     elif sort_by == 'priority':
-        # Define a mapping for priority levels to sort them correctly
         priority_order = {'High': 1, 'Medium': 2, 'Low': 3}
-        all_tasks.sort(key=lambda x: priority_order.get(x.priority, 99))
+        all_tasks.sort(key=lambda x: priority_order.get(x.priority, 99), reverse=(sort_order == 'desc'))
     else:
-        # Default to sorting by creation date (newest first)
-        all_tasks.sort(key=lambda x: x.created_at, reverse=True)
+        # Default to sorting by creation date
+        all_tasks.sort(key=lambda x: x.created_at, reverse=(sort_order == 'desc'))
+
+    # Separate tasks by status for the kanban view
+    tasks_todo = [t for t in all_tasks if t.status == 'To Do']
+    tasks_in_progress = [t for t in all_tasks if t.status == 'In Progress']
+    tasks_done = [t for t in all_tasks if t.status == 'Done']
 
     return render_template(
         'project_details.html',
         project=project,
-        tasks=all_tasks,
+        tasks_todo=tasks_todo,
+        tasks_in_progress=tasks_in_progress,
+        tasks_done=tasks_done,
         sort_by=sort_by,
-        status_filter=status_filter
+        sort_order=sort_order
     )
 
 
