@@ -170,6 +170,28 @@ def add_project():
 
     return render_template("add_project.html")
 
+# Route to edit an existing project
+@app.route("/edit_project/<int:project_id>", methods=["GET", "POST"])
+@login_required
+def edit_project(project_id):
+    """
+    Handles editing an existing project.
+    """
+    project = Project.query.get_or_404(project_id)
+
+    # Ensure only the owner can edit the project
+    if project.owner != current_user:
+        flash("You do not have permission to edit this project.", "danger")
+        return redirect(url_for('dashboard'))
+
+    if request.method == "POST":
+        project.name = request.form.get("name")
+        project.description = request.form.get("description")
+        db.session.commit()
+        flash("Project updated successfully!", "success")
+        return redirect(url_for('dashboard'))
+
+    return render_template("edit_project.html", project=project)
 
 # Project Details route
 @app.route("/projects/<int:project_id>")
