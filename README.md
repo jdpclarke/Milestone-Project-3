@@ -1,16 +1,16 @@
 # CheckMate - Milestone Project 3
 
-**A comprehensive web platform providing user-friendly task and project management for individuals and teams, designed to streamline workflows and achieve goals.**
+**A comprehensive web platform providing user-friendly task and project management for individuals, designed to streamline workflows and achieve goals.**
 
 ![Responsive Mockup (TBC Placeholder)](assets/readme/mockup.png)
 
 ## 1. Overview
 
-Are you struggling to keep track of multiple projects, countless tasks, and critical deadlines? "CheckMate" is a powerful and intuitive Task Management System designed to help individuals and teams organise their work, streamline their workflows, and achieve their goals with strategic clarity. Inspired by the precision and planning of chess, CheckMate empowers users to move their tasks from "To Do" to "Completed" with confidence.
+Are you struggling to keep track of multiple projects, countless tasks, and critical deadlines? "CheckMate" is a powerful and intuitive Task Management System designed to help individuals organise their work, streamline their workflows, and achieve their goals with strategic clarity. Inspired by the precision and planning of chess, CheckMate empowers users to move their tasks from "To Do" to "Completed" with confidence.
 
 Navigating the complexities of modern workloads, whether personal or professional, often leads to disorganisation, missed deadlines, and a feeling of being overwhelmed. CheckMate is built to cut through this chaos, providing a centralised, straightforward solution for managing all aspects of task and project execution. This intelligent online tool empowers users to effortlessly create, assign, track, and complete tasks within a structured project environment, ensuring nothing falls through the cracks.
-platform
-Whether you're an individual aiming to master your daily to-do list, a student juggling assignments, or a team collaborating on a complex project, CheckMate offers a user-friendly platform to gain control over your work, fostering efficiency, accountability, and the ultimate satisfaction of a job well done.
+
+If you're an individual aiming to master your daily to-do list or a student juggling assignments, CheckMate offers a user-friendly platform to gain control over your work, fostering efficiency, accountability, and the ultimate satisfaction of a job well done.
 
 ## 2. Rationale
 
@@ -22,13 +22,13 @@ In today's fast-paced environment, the ability to effectively plan, execute, and
 
 The core problem that CheckMate seeks to resolve is the pervasive inefficiency and disorganisation associated with managing multiple tasks and projects without a centralised, coherent system. This can lead to wasted time, duplicated efforts, missed opportunities, and a general lack of clarity on progress.
 
-CheckMate offers a user-friendly online platform where users can create projects, define tasks within those projects, assign tasks to other users, set priorities and due dates, and track progress through various statuses. The tool will provide intuitive interfaces for task and project creation, modification (CRUD functionality), and dynamic filtering/sorting options to quickly find relevant information. Key features include secure user authentication, distinct project workspaces, and clear visual feedback on task status. This approach provides a strategic and accessible alternative to fragmented planning methods.
+CheckMate offers a user-friendly online platform where users can create projects, define tasks within those projects, set priorities and due dates, and track progress through various statuses. The tool will provide intuitive interfaces for task and project creation, modification (CRUD functionality), and dynamic filtering/sorting options to quickly find relevant information. Key features include secure user authentication, distinct project workspaces, and clear visual feedback on task status. This approach provides a strategic and accessible alternative to fragmented planning methods.
 
-CheckMate offers several advantages over current, less integrated methods. It provides significant time-saving through centralised management and streamlined workflows. The structured approach reduces the risk of missed deadlines and forgotten tasks, ensuring greater reliability and accountability. Furthermore, the clear and accessible interface empowers users to better understand their workload and focus on what truly matters. For teams, it facilitates seamless collaboration and provides transparent oversight of collective progress, aiding in adherence to project goals.
+CheckMate offers several advantages over current, less integrated methods. It provides significant time-saving through centralised management and streamlined workflows. The structured approach reduces the risk of missed deadlines and forgotten tasks, ensuring greater reliability and accountability. Furthermore, the clear and accessible interface empowers users to better understand their workload and focus on what truly matters.
 
-The initial scope of CheckMate focuses on providing core task and project management functionalities: user authentication, project creation/management, task CRUD operations (create, read, update, delete), task assignment, due dates, priorities, status tracking, and basic filtering/sorting. Acknowledged limitations include the initial focus on fundamental features before expanding to more advanced collaboration tools or integrations. Potential future enhancements for CheckMate include advanced reporting and analytics, integration with calendars or communication platforms, recurring tasks, sub-tasks, file attachments, and more granular notification settings for deadlines or changes.
+The initial scope of CheckMate focuses on providing core task and project management functionalities: user authentication, project creation/management, task CRUD operations (create, read, update, delete), due dates, priorities, status tracking, and basic filtering/sorting. Acknowledged limitations include the initial focus on fundamental features before expanding to more advanced collaboration tools or integrations. Potential future enhancements for CheckMate include collaboration with others, advanced reporting and analytics, integration with calendars or communication platforms, recurring tasks, sub-tasks, file attachments, and more granular notification settings for deadlines or changes.
 
-In summary, CheckMate addresses a significant need by providing a user-friendly and accurate solution for managing tasks and projects. By simplifying this process, the tool has the potential to save time, reduce errors, improve focus, and ultimately contribute to the more efficient execution and successful completion of individual and collaborative endeavours.
+In summary, CheckMate addresses a significant need by providing a user-friendly and accurate solution for managing tasks and projects. By simplifying this process, the tool has the potential to save time, reduce errors, improve focus, and ultimately contribute to the more efficient execution and successful completion of individual endeavours.
 
 ## 3. User Experience (UX)
 
@@ -65,9 +65,9 @@ In summary, CheckMate addresses a significant need by providing a user-friendly 
 
 **Acceptance Criteria:**
 
-- Users can create new tasks, specifying a title, description, due date, priority, and optional project association.
+- Users can create new tasks, specifying a title, description, due date priority.
 - All tasks are displayed in a clear, organised list or board view.
-- Each task entry clearly shows its title, due date, priority, and current status.
+- Each task entry clearly shows its title, description, due date, priority, and current status.
 - Users can click on a task to view its full details in a dedicated view or modal.
 - Users can edit any field of an existing task.
 - Users can change a task's status (e.g., 'To Do', 'In Progress', 'Completed').
@@ -84,18 +84,16 @@ In summary, CheckMate addresses a significant need by providing a user-friendly 
 - Implement database CRUD operations for the tasks table.
 - Create form handling for task creation and editing.
 
-#### Feature 3: Project Organisation & Collaboration
+#### Feature 3: Project Organisation
 
-**As a "CheckMate" user,** I want to create and manage projects, assign tasks within them, and invite other users to collaborate, so that I can organise larger initiatives and work effectively with a team.
+**As a "CheckMate" user,** I want to create and manage projects, assign tasks within them, so that I can organise larger initiatives.
 
 **Acceptance Criteria:**
 
 - Users can create new projects with a name and description.
-- Users can view a list of all projects they own or are a member of.
+- Users can view a list of all projects they own.
 - Each project view displays the tasks associated with it.
-- Project owners can invite other registered users to become members of their projects.
-- Project members can view and interact with tasks within that project based on their assigned role/permissions.
-- Projects can be marked as 'Completed' or 'Archived'.
+- Project owners can view and interact with tasks within that project.
 
 **Tasks:**
 
@@ -103,12 +101,8 @@ In summary, CheckMate addresses a significant need by providing a user-friendly 
 - Creating new projects (e.g., /projects/new).
 - Listing projects (e.g., /projects).
 - Viewing a single project and its tasks (e.g., /projects/\<id>).
-- Adding/removing project members.
 - Implement database CRUD operations for the projects table.
-- Implement database operations for project_members (inserting new members, removing members).
 - Develop logic to filter tasks by project_id.
-- Implement a search/selection mechanism for inviting users (e.g., by username or email).
-- Define and enforce basic project roles/permissions (e.g., only owner can delete project, members can manage tasks).
 
 #### Feature 4: Efficient Task Filtering & Sorting
 
@@ -119,8 +113,6 @@ In summary, CheckMate addresses a significant need by providing a user-friendly 
 - A set of filter options is available (e.g., dropdowns, checkboxes) for:
   - Task status (To Do, In Progress, Completed, Blocked).
   - Task priority (High, Medium, Low).
-  - Assigned user (if applicable).
-  - Associated project.
 - Users can sort tasks by due date (ascending/descending), priority, or creation date.
 - Applying filters or sorting immediately updates the displayed task list without a full page reload.
 - Multiple filters can be applied simultaneously.
@@ -174,20 +166,14 @@ All images used on the website are optimised for web performance to ensure fast 
   - Enables users to update the status of tasks (e.g., 'To Do', 'In Progress', 'Completed', 'Blocked') for clear progress tracking.
   - Provides visual indicators for task status and completion, making it easy to see progress at a glance.
 
-- **Robust Project Management and Collaboration:**
-  - Empowers users to create and manage multiple projects, serving as containers for related tasks.
-  - Allows for tasks to be assigned to specific users within a project.
-  - Facilitates collaboration by enabling project owners to invite other registered users to join and interact within projects based on defined roles.
-
 - **Efficient Task Filtering and Prioritisation:**
-  - Offers advanced filtering options to quickly narrow down task lists by criteria such as status, priority, assigned user, and associated project.
+  - Offers advanced filtering options to quickly narrow down task lists by criteria such as status and priority.
   - Includes sorting capabilities to organise tasks by due date, priority, or creation date for efficient prioritisation.
   - Ensures immediate and dynamic updates to the displayed task list upon applying filters or sorting.
 
 - **Intuitive User Interface and Feedback:**
   - Implements clear and immediate validation for all input fields, providing consolidated alerts for missing mandatory information or invalid data.
   - Presents a clean, well-organised layout for all task and project information, enhancing usability.
-  - Includes a "Reset" function for forms to quickly clear all input fields and start afresh.
 
 - **Responsive and Accessible Design:**
   - The application layout seamlessly adjusts to various screen sizes aWnd orientations, guaranteeing optimal usability across desktops, laptops, tablets, and mobile phones.
