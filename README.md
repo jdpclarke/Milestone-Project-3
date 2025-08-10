@@ -22,7 +22,7 @@ In today's fast-paced environment, the ability to effectively plan, execute, and
 
 The core problem that CheckMate seeks to resolve is the pervasive inefficiency and disorganisation associated with managing multiple tasks and projects without a centralised, coherent system. This can lead to wasted time, duplicated efforts, missed opportunities, and a general lack of clarity on progress.
 
-CheckMate offers a user-friendly online platform where users can create projects, define tasks within those projects, assign tasks to team members, set priorities and due dates, and track progress through various statuses. The tool will provide intuitive interfaces for task and project creation, modification (CRUD functionality), and dynamic filtering/sorting options to quickly find relevant information. Key features include secure user authentication, distinct project workspaces, and clear visual feedback on task status. This approach provides a strategic and accessible alternative to fragmented planning methods.
+CheckMate offers a user-friendly online platform where users can create projects, define tasks within those projects, assign tasks to other users, set priorities and due dates, and track progress through various statuses. The tool will provide intuitive interfaces for task and project creation, modification (CRUD functionality), and dynamic filtering/sorting options to quickly find relevant information. Key features include secure user authentication, distinct project workspaces, and clear visual feedback on task status. This approach provides a strategic and accessible alternative to fragmented planning methods.
 
 CheckMate offers several advantages over current, less integrated methods. It provides significant time-saving through centralised management and streamlined workflows. The structured approach reduces the risk of missed deadlines and forgotten tasks, ensuring greater reliability and accountability. Furthermore, the clear and accessible interface empowers users to better understand their workload and focus on what truly matters. For teams, it facilitates seamless collaboration and provides transparent oversight of collective progress, aiding in adherence to project goals.
 
@@ -42,7 +42,7 @@ In summary, CheckMate addresses a significant need by providing a user-friendly 
 
 - A registration form is present, requiring a unique username, email, and password (with confirmation).
 - Passwords are securely hashed and stored (not plain text).
-- Users can log in using their username/email and password.
+- Users can log in using their username and password.
 - Successful login redirects to a user dashboard/main task view.
 - Failed login attempts provide appropriate, non-revealing error messages.
 - Users can view and update their first name, last name, and email on a profile page.

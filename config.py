@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 
 class Config:
@@ -6,6 +7,10 @@ class Config:
     # IMPORTANT: This will be loaded from the .env file locally,
     # or Heroku env vars in production
     SECRET_KEY = os.getenv('SECRET_KEY', 'your_secret_key_here')
+
+    # This is the duration of a "permanent" session, in this case, 30 minutes.
+    # This only applies if 'remember=True' is passed to login_user()
+    PERMANENT_SESSION_LIFETIME = timedelta(minutes=30)
 
     # Database URI for PostgreSQL
     # Loaded from .env locally, or Heroku's DATABASE_URL
