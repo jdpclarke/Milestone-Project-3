@@ -393,6 +393,43 @@ def profile():
     return render_template("profile.html", user=current_user)
 
 
+# Change Password route
+@app.route("/change_password", methods=["GET", "POST"])
+@login_required
+def change_password():
+    """
+    Handles changing the current user's password.
+    """
+    if request.method == "POST":
+        current_password = request.form.get("current_password")
+        new_password = request.form.get("new_password")
+        confirm_new_password = request.form.get("confirm_new_password")
+
+        # Check if the current password is correct
+        if not current_user.check_password(current_password):
+            flash("Incorrect current password.", "danger")
+            return redirect(url_for('change_password'))
+
+        # Check if the new passwords match
+        if new_password != confirm_new_password:
+            flash("New passwords do not match.", "danger")
+            return redirect(url_for('change_password'))
+        
+        # Check if new password is not the same as current one
+        if current_user.check_password(new_password):
+            flash("New password cannot be the same as the old password.", "danger")
+            return redirect(url_for('change_password'))
+
+        # Update the password
+        current_user.set_password(new_password)
+        db.session.commit()
+
+        flash("Your password has been changed successfully.", "success")
+        return redirect(url_for('profile'))
+
+    return render_template("change_password.html")
+
+
 # Edit Profile route
 @app.route("/profile/edit", methods=["GET", "POST"])
 @login_required
