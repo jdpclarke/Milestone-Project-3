@@ -1,42 +1,46 @@
-{% extends "master.html" %}
-
-{% block content %}
+{% extends "master.html" %} {% block content %}
 <div class="row justify-content-center page-header mb-5">
-    <!-- Use d-flex for larger screens and flex-column for smaller screens -->
-    <div class="col-12 d-flex flex-column flex-md-row justify-content-between align-items-center">
-        <h1 class="mb-3 mb-md-0">My Projects</h1>
-        <a href="{{ url_for('add_project') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Add New Project
-        </a>
-    </div>
+  <!-- Use d-flex for larger screens and flex-column for smaller screens -->
+  <div
+    class="col-12 d-flex flex-column flex-md-row justify-content-between align-items-center"
+  >
+    <h1 class="mb-3 mb-md-0">My Projects</h1>
+    <a href="{{ url_for('add_project') }}" class="btn btn-primary">
+      <i class="fas fa-plus"></i> Add New Project
+    </a>
+  </div>
 </div>
 
 <div class="row">
-    {% if projects %}
-        {% for project in projects %}
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card project-card h-100">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{ project.name }}</h5>
-                    <p class="card-text text-muted">{{ project.description }}</p>
-                    <div class="mt-auto d-flex justify-content-between align-items-center">
-                        <small>Created: {{ project.created_at.strftime('%d/%m/%Y') }}</small>
-                        <span class="badge 
-                            {% if project.status == 'Completed' %}bg-success{% elif project.status == 'Archived' %}bg-secondary{% else %}bg-primary{% endif %}">
-                            {{ project.status }}
-                        </span>
-                        <a href="{{ url_for('project_details', project_id=project.id) }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-eye"></i> View Details</a>
-                    </div>
-                </div>
-            </div>
+  {% if projects %} {% for project in projects %}
+  <div class="col-md-6 col-lg-4 mb-4">
+    <div class="card project-card h-100">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ project.name }}</h5>
+        <p class="card-text text-muted">{{ project.description }}</p>
+        <div class="mt-auto d-flex justify-content-between align-items-center">
+          <small>Created: {{ project.created_at.strftime('%d/%m/%Y') }}</small>
+          <span
+            class="badge {% if project.status == 'Completed' %}bg-success{% elif project.status == 'Archived' %}bg-secondary{% else %}bg-primary{% endif %}"
+          >
+            {{ project.status }}
+          </span>
+          <a
+            href="{{ url_for('project_details', project_id=project.id) }}"
+            class="btn btn-outline-primary btn-sm"
+            ><i class="fas fa-eye"></i> View Details</a
+          >
         </div>
-        {% endfor %}
-    {% else %}
-        <div class="col-12 text-center mt-5">
-            <div class="alert alert-info" role="alert">
-                You are not a member of any projects yet.
-            </div>
-        </div>
-    {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %} {% else %}
+  <div class="col-12 text-center mt-5">
+    <div class="alert alert-info" role="alert">
+      You are not a member of any projects yet. <br />
+      Click "Add New Project" to get started!
+    </div>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}

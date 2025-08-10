@@ -44,7 +44,7 @@
                             <label for="assigned_to_id" class="form-label">Assignee</label>
                             <select class="form-select" id="assigned_to_id" name="assigned_to_id" required>
                                 {% for user in users %}
-                                <option value="{{ user.id }}" {% if user.id == task.assignee.id %}selected{% endif %}>{{ user.username }}</option>
+                                <option value="{{ user.id }}" {% if task.assignee and user.id == task.assignee.id %}selected{% endif %}>{{ user.username }}</option>
                                 {% endfor %}
                             </select>
                         </div>

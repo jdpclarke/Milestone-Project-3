@@ -5,11 +5,23 @@ load_dotenv()
 
 from app import app
 from db import db
+from sqlalchemy import text
 
 # Ensure the Flask app context is pushed
 with app.app_context():
-    print("Creating database tables...")
-    # Drop all tables first to ensure a clean slate
-    db.drop_all()
+    print("Dropping all tables with CASCADE...")
+    
+    # Use raw SQL to drop the entire public schema, which forces
+    # all tables and their dependent objects (like foreign keys) to be dropped.
+    try:
+        db.session.execute(text('DROP SCHEMA public CASCADE;'))
+        db.session.execute(text('CREATE SCHEMA public;'))
+        db.session.commit()
+        print("Existing database schema dropped and recreated successfully.")
+    except Exception as e:
+        print(f"Error dropping schema: {e}")
+        db.session.rollback()
+
+    print("Creating new database tables...")
     db.create_all()
     print("Database tables created successfully!")
