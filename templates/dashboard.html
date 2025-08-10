@@ -1,7 +1,7 @@
 {% extends "master.html" %}
 
 {% block content %}
-<div class="row justify-content-center page-header">
+<div class="row justify-content-center page-header mb-5">
     <div class="col-12 d-flex justify-content-between align-items-center">
         <h1>My Projects</h1>
         <a href="{{ url_for('add_project') }}" class="btn btn-primary">
@@ -29,7 +29,7 @@
     {% else %}
         <div class="col-12 text-center mt-5">
             <h2 class="text-muted">You don't have any projects yet.</h2>
-            <p>Start by adding your first one!</p>
+            <p>Click "New Project" to get started!</p>
         </div>
     {% endif %}
 </div>

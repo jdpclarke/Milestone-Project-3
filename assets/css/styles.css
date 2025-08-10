@@ -22,12 +22,20 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: var(--color-wild-sand);
     color: var(--color-mirage);
+    display: flex; /* Use Flexbox to manage layout */
+    flex-direction: column; /* Stack children vertically */
+    min-height: 100vh; /* Ensures the body fills the entire viewport height */
+}
+
+/* This class will wrap the main content to push the footer down */
+.main-content {
+    flex-grow: 1; /* Allows this element to take up all available space */
 }
 
 /* Navbar */
 /* Style the main navigation bar */
 .navbar {
-    background-color: var(--color-card-bg-color, #ffffff);
+    background-color: var(--color-silver);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Adds a subtle shadow for depth */
     padding: 1rem 2rem;
     margin-bottom: 2rem;
@@ -51,6 +59,22 @@ body {
 /* Change link color on hover */
 .nav-link:hover {
     color: var(--color-primary-action-blue);
+}
+
+/* Logos for Navbar and Main Page */
+/* Styling for the logo in the navbar */
+.navbar-logo {
+    height: 40px;
+    width: auto;
+}
+
+/* Styling for the large logo on the main page */
+.main-logo {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Buttons */
@@ -160,4 +184,14 @@ body {
 /* Muted text color for a consistent look */
 .text-muted {
     color: var(--color-boulder) !important;
+}
+
+/* Footer */
+.footer {
+    padding: 2rem 0;
+    margin-top: 4rem;
+    background-color: var(--color-silver);
+    color: var(--color-mirage);
+    text-align: center;
+    border-top: 1px solid var(--color-boulder);
 }

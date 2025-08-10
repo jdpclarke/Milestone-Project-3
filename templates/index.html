@@ -1,19 +1,36 @@
-{% extends "master.html" %}
-
-{% block content %}
+{% extends "master.html" %} {% block content %}
 <div class="jumbotron text-center">
-    {% if current_user.is_authenticated %}
-        <h1 class="display-4">Welcome back, {{ current_user.username }}!</h1>
-        <p class="lead">You are logged in.</p>
-        <hr class="my-4">
-        <a class="btn btn-primary btn-lg" href="{{ url_for('dashboard') }}" role="button">Go to your Dashboard</a>
-    {% else %}
-        <h1 class="display-4">Welcome to CheckMate</h1>
-        <p class="lead">Your personal task management system.</p>
-        <hr class="my-4">
-        <p>Please log in or register to get started.</p>
-        <a class="btn btn-primary btn-lg" href="{{ url_for('login') }}" role="button">Login</a>
-        <a class="btn btn-secondary btn-lg" href="{{ url_for('register') }}" role="button">Register</a>
-    {% endif %}
+  {% if current_user.is_authenticated %}
+  <h1 class="display-4">Welcome back, {{ current_user.username }}!</h1>
+  <p class="lead">You are logged in.</p>
+  <hr class="my-4" />
+  <a
+    class="btn btn-primary btn-lg"
+    href="{{ url_for('dashboard') }}"
+    role="button"
+    >Go to your Dashboard</a
+  >
+  {% else %}
+  <div class="text-center mb-5">
+    <img
+      src="{{ url_for('static', filename='images/logo-with-text.png') }}"
+      alt="CheckMate Logo"
+      class="main-logo"
+    />
+  </div>
+  <h1 class="display-4">Welcome to CheckMate</h1>
+  <p class="lead">Your personal task management system.</p>
+  <hr class="my-4" />
+  <p>Please log in or register to get started.</p>
+  <a class="btn btn-primary btn-lg" href="{{ url_for('login') }}" role="button"
+    >Login</a
+  >
+  <a
+    class="btn btn-secondary btn-lg"
+    href="{{ url_for('register') }}"
+    role="button"
+    >Register</a
+  >
+  {% endif %}
 </div>
 {% endblock %}
