@@ -97,15 +97,34 @@ h6 {
 
 /* Button Styling */
 .btn-primary {
-    background-color: var(--color-primary-action-blue);
-    border-color: var(--color-primary-action-blue);
-    font-weight: 500;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s, border-color 0.2s;
+  background-color: var(--color-primary-action-blue);
+  border-color: var(--color-primary-action-blue);
+  font-weight: 500;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .btn-primary:hover {
-    background-color: #357bd8; /* Lighter Blue that Primary Action Blue */
-    border-color: #357bd8; /* Lighter Blue that Primary Action Blue */
+  background-color: #357bd8; /* Lighter Blue that Primary Action Blue */
+  border-color: #357bd8; /* Lighter Blue that Primary Action Blue */
 }
 
+/* Specific button styles for actions */
+.btn-outline-primary {
+  color: var(--color-primary-action-blue);
+  border-color: var(--color-primary-action-blue);
+  transition: background-color 0.2s, color 0.2s;
+}
+.btn-outline-primary:hover {
+  background-color: var(--color-primary-action-blue);
+  color: var(--color-mercury);
+}
+.btn-outline-danger {
+  color: var(--color-danger-red);
+  border-color: var(--color-danger-red);
+  transition: background-color 0.2s, color 0.2s;
+}
+.btn-outline-danger:hover {
+  background-color: var(--color-danger-red);
+  color: var(--color-mercury);
+}
