@@ -66,11 +66,11 @@
                     <p class="card-text text-muted">{{ task.description }}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         {% if task.priority == 'High' %}
-                        <span class="badge bg-danger">High Priority</span>
+                        <span class="badge bg-danger">High</span>
                         {% elif task.priority == 'Medium' %}
-                        <span class="badge bg-warning text-dark">Medium Priority</span>
+                        <span class="badge bg-warning text-dark">Medium</span>
                         {% else %}
-                        <span class="badge bg-success">Low Priority</span>
+                        <span class="badge bg-success">Low</span>
                         {% endif %}
                         <small class="text-end">Due: {{ task.due_date.strftime('%d/%m/%Y') if task.due_date else 'N/A' }}</small>
                     </div>
@@ -97,11 +97,11 @@
                     <p class="card-text text-muted">{{ task.description }}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         {% if task.priority == 'High' %}
-                        <span class="badge bg-danger">High Priority</span>
+                        <span class="badge bg-danger">High</span>
                         {% elif task.priority == 'Medium' %}
-                        <span class="badge bg-warning text-dark">Medium Priority</span>
+                        <span class="badge bg-warning text-dark">Medium</span>
                         {% else %}
-                        <span class="badge bg-success">Low Priority</span>
+                        <span class="badge bg-success">Low</span>
                         {% endif %}
                         <small class="text-end">Due: {{ task.due_date.strftime('%d/%m/%Y') if task.due_date else 'N/A' }}</small>
                     </div>
@@ -128,11 +128,11 @@
                     <p class="card-text text-muted">{{ task.description }}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         {% if task.priority == 'High' %}
-                        <span class="badge bg-danger">High Priority</span>
+                        <span class="badge bg-danger">High</span>
                         {% elif task.priority == 'Medium' %}
-                        <span class="badge bg-warning text-dark">Medium Priority</span>
+                        <span class="badge bg-warning text-dark">Medium</span>
                         {% else %}
-                        <span class="badge bg-success">Low Priority</span>
+                        <span class="badge bg-success">Low</span>
                         {% endif %}
                         <small class="text-end">Due: {{ task.due_date.strftime('%d/%m/%Y') if task.due_date else 'N/A' }}</small>
                     </div>
