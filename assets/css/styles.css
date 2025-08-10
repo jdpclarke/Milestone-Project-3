@@ -13,14 +13,32 @@
   --color-limed-spruce: #3645f; /* Limed Spruce */
   /* Strategic Accents */
   --color-mirage: #121a22; /* Mirage */
-  --color-primary-action-blue: #4682B4; /* Steel Blue */
+  --color-primary-action-blue: #4682b4; /* Steel Blue */
   --color-success-green: #2e8b57; /* Sea Green */
   --color-warning-yellow: #ffd700; /* Gold */
-  --color-danger-red: #B22222; /*Firebrick */
+  --color-danger-red: #b22222; /*Firebrick */
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--color-wild-sand);
-    color: var(--color-limed-spruce);
+  font-family: "Inter", sans-serif;
+  background-color: var(--color-wild-sand);
+  color: var(--color-limed-spruce);
+}
+
+/* Navbar Styles */
+.navbar {
+  background-color: var(--color-mirage);
+  color: var(--color-wild-sand);
+  box-shadow: 0 2px 4px var(--color-limed-spruce);
+  margin-bottom: 2rem;
+}
+
+.navbar-brand, .nav-link {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+    color: var(--color-wild-sand) !important;
+}
+
+.nav-link:hover {
+    color: var(--color-primary-action-blue) !important;
 }
