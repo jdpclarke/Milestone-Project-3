@@ -1,23 +1,21 @@
-{% extends "master.html" %}
-
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <h3 class="mb-0">Create New Project</h3>
+                <h3 class="mb-0">Edit Project</h3>
             </div>
             <div class="card-body">
-                <form action="{{ url_for('add_project') }}" method="POST">
+                <form action="{{ url_for('edit_project', project_id=project.id) }}" method="POST">
                     <div class="mb-3">
                         <label for="name" class="form-label">Project Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ project.name }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="4">{{ project.description }}</textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Project</button>
+                    <button type="submit" class="btn btn-primary">Update Project</button>
                     <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>

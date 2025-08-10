@@ -15,7 +15,7 @@ from db import db
 from models import User, Project, Task
 
 # Initialize Flask app
-app = Flask(__name__)
+app = Flask(__name__, static_folder='assets')
 
 
 # Load configuration from config.py
