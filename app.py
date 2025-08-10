@@ -209,7 +209,6 @@ def add_task(project_id):
         due_date_str = request.form.get('due_date')
         status = request.form.get('status')
         priority = request.form.get('priority')
-        assigned_to_id = request.form.get('assigned_to_id')
 
         due_date = datetime.strptime(due_date_str, '%Y-%m-%d') if due_date_str else None
 
@@ -224,14 +223,13 @@ def add_task(project_id):
             status=status,
             priority=priority,
             project_id=project.id,
-            assigned_to_id=assigned_to_id
         )
         db.session.add(new_task)
         db.session.commit()
         flash("Task added successfully!", "success")
         return redirect(url_for('project_details', project_id=project.id))
 
-    return render_template('add_task.html', project=project, users=users)
+    return render_template('add_task.html', project=project)
 
 
 # Edit Task route
@@ -254,7 +252,6 @@ def edit_task(task_id):
         due_date_str = request.form.get('due_date')
         task.status = request.form.get('status')
         task.priority = request.form.get('priority')
-        task.assigned_to_id = request.form.get('assigned_to_id')
 
         task.due_date = datetime.strptime(due_date_str, '%Y-%m-%d') if due_date_str else None
 
@@ -262,7 +259,7 @@ def edit_task(task_id):
         flash("Task updated successfully!", "success")
         return redirect(url_for('project_details', project_id=task.project.id))
 
-    return render_template('edit_task.html', task=task, users=users)
+    return render_template('edit_task.html', task=task)
 
 
 # Delete Task route
@@ -411,25 +408,37 @@ def edit_profile():
 
 
 # Change Password route
-@app.route("/change_password", methods=['GET', 'POST'])
+@app.route("/profile/change_password", methods=["GET", "POST"])
 @login_required
 def change_password():
     """
     Handles changing the user's password.
     """
-    if request.method == 'POST':
-        old_password = request.form.get('old_password')
-        new_password = request.form.get('new_password')
+    if request.method == "POST":
+        current_password = request.form.get("current_password")
+        new_password = request.form.get("new_password")
+        confirm_new_password = request.form.get("confirm_new_password")
 
-        if not current_user.check_password(old_password):
-            flash("Incorrect old password.", "danger")
-        else:
-            current_user.set_password(new_password)
-            db.session.commit()
-            flash("Password updated successfully!", "success")
-            return redirect(url_for('profile'))
+        # Explicitly check for empty password fields to prevent the TypeError
+        if not current_password or not new_password or not confirm_new_password:
+            flash("All password fields are required.", "danger")
+            return redirect(url_for("change_password"))
+            
+        if not current_user.check_password(current_password):
+            flash("Incorrect current password.", "danger")
+            return redirect(url_for("change_password"))
+        
+        # New validation check
+        if new_password != confirm_new_password:
+            flash("New password and confirm new password do not match.", "danger")
+            return redirect(url_for("change_password"))
 
-    return render_template('change_password.html')
+        current_user.set_password(new_password)
+        db.session.commit()
+        flash("Password updated successfully!", "success")
+        return redirect(url_for("profile"))
+
+    return render_template("change_password.html")
 
 
 if __name__ == '__main__':
