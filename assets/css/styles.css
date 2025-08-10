@@ -65,3 +65,32 @@ h6 {
   padding-bottom: 1rem;
   margin-bottom: 2rem;
 }
+
+/* Card and Form Styling */
+.card {
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-mercury);
+  box-shadow: 0 4px 8px var(--color-limed-spruce);
+  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: #ffffff; /* White card background for contrast */
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px var(--color-limed-spruce);
+}
+
+.card-header {
+  background-color: var(--color-limed-spruce);
+  color: var(--color-wild-sand);
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  border-radius: 0.5rem 0.5rem 0 0;
+  border-bottom: none;
+}
+
+.form-control {
+  border-radius: 0.25rem;
+  border: 1px solid var(--color-silver);
+  box-shadow: none;
+}
