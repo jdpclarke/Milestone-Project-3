@@ -208,3 +208,16 @@ h6 {
 .task-card[data-status="Done"] {
   border-left-color: var(--color-success-green);
 }
+
+/* Profile page styling */
+.profile-card {
+  background-color: var(--color-mercury);
+}
+
+.profile-card img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 3px solid var(--color-primary-action-blue);
+}
