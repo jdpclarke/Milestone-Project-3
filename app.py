@@ -48,344 +48,346 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-# --- Routes ---
+# --- ROUTE DEFINITIONS ---
+# You'll need to add your routes here.
+
 
 @app.route("/")
 def index():
-    """Home page route."""
+    """
+    Renders the homepage.
+    """
     return render_template("index.html")
+
+# User authentication routes
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """
+    Handles user login.
+    """
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+    if request.method == "POST":
+        user = User.query.filter_by(email=request.form["email"]).first()
+        if user and user.check_password(request.form["password"]):
+            login_user(user)
+            flash("Logged in successfully!", "success")
+            return redirect(url_for("dashboard"))
+        else:
+            flash("Invalid username or password", "danger")
+    return render_template("login.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    """Handles user registration."""
+    """
+    Handles user registration.
+    """
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
-
     if request.method == "POST":
-        username = request.form.get("username")
-        email = request.form.get("email")
-        password = request.form.get("password")
+        username = request.form["username"]
+        email = request.form["email"]
+        password = request.form["password"]
 
-        # Basic validation
-        if not username or not email or not password:
-            flash("All fields are required.", "danger")
-            return redirect(url_for("register"))
-
-        # Check if user already exists
-        if User.query.filter_by(username=username).first() or \
-           User.query.filter_by(email=email).first():
-            flash("Username or Email already exists.", "danger")
-            return redirect(url_for("register"))
-
-        new_user = User(username=username, email=email)
-        new_user.set_password(password)
-        db.session.add(new_user)
-        db.session.commit()
-        flash("Registration successful! Please log in.", "success")
-        return redirect(url_for("login"))
-
-    return render_template("register.html")
-
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    """Handles user login."""
-    if current_user.is_authenticated:
-        return redirect(url_for('dashboard'))
-
-    if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
-        user = User.query.filter_by(username=username).first()
-
-        if user and user.check_password(password):
-            login_user(user)
-            flash(f"Welcome back, {user.username}!", "success")
-            return redirect(url_for("dashboard"))
+        if User.query.filter_by(username=username).first():
+            flash("Username already exists", "danger")
+        elif User.query.filter_by(email=email).first():
+            flash("Email already registered", "danger")
         else:
-            flash("Invalid username or password.", "danger")
-
-    return render_template("login.html")
+            user = User(username=username, email=email)
+            user.set_password(password)
+            db.session.add(user)
+            db.session.commit()
+            flash("Registration successful! Please log in.", "success")
+            return redirect(url_for("login"))
+    return render_template("register.html")
 
 
 @app.route("/logout")
 @login_required
 def logout():
-    """Logs out the current user."""
+    """
+    Handles user logout.
+    """
     logout_user()
-    flash("You have been logged out.", "info")
     return redirect(url_for("index"))
 
 
-@app.route("/dashboard")
+# Profile management
+@app.route("/profile")
+@login_required
+def profile():
+    """
+    Displays the user's profile page.
+    """
+    return render_template("profile.html", user=current_user)
+
+
+@app.route("/edit_profile", methods=["GET", "POST"])
+@login_required
+def edit_profile():
+    """
+    Handles editing the current user's profile.
+    """
+    if request.method == "POST":
+        new_username = request.form.get("username")
+        new_email = request.form.get("email")
+
+        # --- VALIDATION ---
+        if not new_username or not new_email:
+            flash("Username and Email are required.", "danger")
+            return redirect(url_for("edit_profile"))
+
+        # Check for existing username or email, but allow the current user's own.
+        existing_user_by_username = User.query.filter(User.username == new_username, User.id != current_user.id).first()
+        existing_user_by_email = User.query.filter(User.email == new_email, User.id != current_user.id).first()
+
+        if existing_user_by_username:
+            flash("Username already exists. Please choose a different one.", "danger")
+            return redirect(url_for("edit_profile"))
+
+        if existing_user_by_email:
+            flash("Email already exists. Please choose a different one.", "danger")
+            return redirect(url_for("edit_profile"))
+
+        # Update the user's information
+        current_user.username = new_username
+        current_user.email = new_email
+        db.session.commit()
+        flash("Profile updated successfully!", "success")
+        return redirect(url_for("profile"))
+
+    return render_template("edit_profile.html", user=current_user)
+
+@app.route('/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    """
+    Handles changing the user's password.
+    """
+    if request.method == 'POST':
+        old_password = request.form.get('old_password')
+        new_password = request.form.get('new_password')
+        confirm_password = request.form.get('confirm_password')
+
+        if not current_user.check_password(old_password):
+            flash('Incorrect old password.', 'danger')
+        elif new_password != confirm_password:
+            flash('New passwords do not match.', 'danger')
+        else:
+            current_user.set_password(new_password)
+            db.session.commit()
+            flash('Password updated successfully!', 'success')
+            return redirect(url_for('profile'))
+
+    return render_template('change_password.html')
+
+# Project routes
+@app.route('/dashboard')
 @login_required
 def dashboard():
-    """Displays the user's projects."""
-    projects = current_user.projects.all()
-    return render_template("dashboard.html", projects=projects)
+    """
+    Displays the user's dashboard with their projects.
+    """
+    projects = Project.query.filter_by(user_id=current_user.id).all()
+    return render_template('dashboard.html', projects=projects)
 
-
-@app.route("/add_project", methods=["GET", "POST"])
+@app.route('/add_project', methods=['GET', 'POST'])
 @login_required
 def add_project():
-    """Handles adding a new project."""
-    if request.method == "POST":
-        name = request.form.get("name")
-        description = request.form.get("description")
+    """
+    Handles adding a new project.
+    """
+    if request.method == 'POST':
+        name = request.form.get('name')
+        description = request.form.get('description')
+        if name:
+            new_project = Project(name=name, description=description, user_id=current_user.id)
+            db.session.add(new_project)
+            db.session.commit()
+            flash('Project created successfully!', 'success')
+            return redirect(url_for('dashboard'))
+    return render_template('add_project.html')
 
-        if not name:
-            flash("Project name is required.", "danger")
-            return redirect(url_for("add_project"))
-
-        # Create new project and link it to the current user
-        new_project = Project(
-            name=name, description=description, owner=current_user
-        )
-
-        # Add the creator to the project members automatically
-        new_project.members.append(current_user)
-
-        db.session.add(new_project)
-        db.session.commit()
-        flash("Project added successfully!", "success")
-        return redirect(url_for("dashboard"))
-
-    return render_template("add_project.html")
-
-
-@app.route("/project/<int:project_id>")
+@app.route('/edit_project/<int:project_id>', methods=['GET', 'POST'])
 @login_required
-def project_details(project_id):
-    """Displays details for a specific project."""
-    # Ensure the project exists and the current user is a member
+def edit_project(project_id):
+    """
+    Handles editing an existing project.
+    """
     project = Project.query.get_or_404(project_id)
-    if current_user not in project.members:
-        flash("You do not have access to this project.", "danger")
+    if project.user_id != current_user.id:
+        flash('You are not authorized to edit this project.', 'danger')
         return redirect(url_for('dashboard'))
 
-    # Separate tasks into their respective statuses
+    if request.method == 'POST':
+        name = request.form.get('name')
+        description = request.form.get('description')
+        if name:
+            project.name = name
+            project.description = description
+            db.session.commit()
+            flash('Project updated successfully!', 'success')
+            return redirect(url_for('dashboard'))
+
+    return render_template('edit_project.html', project=project)
+
+
+@app.route('/delete_project/<int:project_id>', methods=['POST'])
+@login_required
+def delete_project(project_id):
+    """
+    Deletes a project and all associated tasks.
+    """
+    project = Project.query.get_or_404(project_id)
+    if project.user_id != current_user.id:
+        flash('You are not authorized to delete this project.', 'danger')
+        return redirect(url_for('dashboard'))
+    
+    # Delete all tasks associated with the project first
+    for task in project.tasks:
+        db.session.delete(task)
+
+    db.session.delete(project)
+    db.session.commit()
+    flash('Project and all its tasks deleted successfully!', 'success')
+    return redirect(url_for('dashboard'))
+
+
+# Task routes
+@app.route('/project_details/<int:project_id>')
+@login_required
+def project_details(project_id):
+    """
+    Displays the kanban board for a specific project.
+    """
+    project = Project.query.get_or_404(project_id)
+    if project.user_id != current_user.id:
+        flash('You are not authorized to view this project.', 'danger')
+        return redirect(url_for('dashboard'))
+
+    # Separate tasks by status for the kanban board
     tasks_todo = project.tasks.filter_by(status='To Do').all()
-    tasks_in_progress = project.tasks.filter_by(status='In Progress').all()
+    tasks_progress = project.tasks.filter_by(status='In Progress').all()
     tasks_done = project.tasks.filter_by(status='Done').all()
 
     return render_template(
-        "project_details.html",
+        'project_details.html',
         project=project,
         tasks_todo=tasks_todo,
-        tasks_in_progress=tasks_in_progress,
+        tasks_progress=tasks_progress,
         tasks_done=tasks_done
     )
 
-
-@app.route("/edit_project/<int:project_id>", methods=["GET", "POST"])
-@login_required
-def edit_project(project_id):
-    """Handles editing an existing project."""
-    project = Project.query.get_or_404(project_id)
-    if project.owner != current_user:
-        flash("You do not have permission to edit this project.", "danger")
-        return redirect(url_for("dashboard"))
-
-    if request.method == "POST":
-        project.name = request.form.get("name")
-        project.description = request.form.get("description")
-        db.session.commit()
-        flash("Project updated successfully!", "success")
-        return redirect(url_for("project_details", project_id=project.id))
-
-    return render_template("edit_project.html", project=project)
-
-
-@app.route("/delete_project/<int:project_id>", methods=["POST"])
-@login_required
-def delete_project(project_id):
-    """Handles deleting a project."""
-    project = Project.query.get_or_404(project_id)
-    if project.owner != current_user:
-        flash("You do not have permission to delete this project.", "danger")
-        return redirect(url_for("dashboard"))
-
-    # Delete all tasks associated with the project first
-    Task.query.filter_by(project_id=project.id).delete()
-    # Remove all members from the project
-    project.members = []
-    # Delete the project itself
-    db.session.delete(project)
-    db.session.commit()
-    flash("Project deleted successfully!", "success")
-    return redirect(url_for("dashboard"))
-
-
-@app.route("/add_task/<int:project_id>", methods=["GET", "POST"])
+@app.route('/add_task/<int:project_id>', methods=['GET', 'POST'])
 @login_required
 def add_task(project_id):
-    """Handles adding a new task to a project."""
+    """
+    Handles adding a new task to a project.
+    """
     project = Project.query.get_or_404(project_id)
-    # Only members can add tasks
-    if current_user not in project.members:
-        flash("You must be a member of this project to add tasks.", "danger")
+    if project.user_id != current_user.id:
+        flash('You are not authorized to add tasks to this project.', 'danger')
         return redirect(url_for('dashboard'))
+    
+    if request.method == 'POST':
+        title = request.form.get('title')
+        description = request.form.get('description')
+        status = request.form.get('status')
+        priority = request.form.get('priority')
+        due_date_str = request.form.get('due_date')
+        assigned_to_id = request.form.get('assigned_to_id')
 
-    # Fetch all users to populate the assignee dropdown
+        due_date = None
+        if due_date_str:
+            due_date = datetime.strptime(due_date_str, '%Y-%m-%d')
+        
+        if title:
+            new_task = Task(
+                title=title,
+                description=description,
+                status=status,
+                priority=priority,
+                due_date=due_date,
+                project_id=project_id,
+                assigned_to_id=assigned_to_id
+            )
+            db.session.add(new_task)
+            db.session.commit()
+            flash('Task added successfully!', 'success')
+            return redirect(url_for('project_details', project_id=project_id))
+    
+    # Get all users to populate the assignee dropdown
     users = User.query.all()
+    return render_template('add_task.html', project=project, users=users)
 
-    if request.method == "POST":
-        title = request.form.get("title")
-        description = request.form.get("description")
-        status = request.form.get("status")
-        priority = request.form.get("priority")
-        due_date_str = request.form.get("due_date")
-        assigned_to_id = request.form.get("assigned_to_id")
-
-        if not title:
-            flash("Task title is required.", "danger")
-            return redirect(url_for("add_task", project_id=project.id))
-
-        due_date = datetime.strptime(due_date_str, "%Y-%m-%d") if due_date_str else None
-
-        assigned_to_user = User.query.get(assigned_to_id)
-
-        new_task = Task(
-            title=title,
-            description=description,
-            status=status,
-            priority=priority,
-            due_date=due_date,
-            project=project,
-            assignee=assigned_to_user
-        )
-        db.session.add(new_task)
-        db.session.commit()
-        flash("Task added successfully!", "success")
-        return redirect(url_for("project_details", project_id=project.id))
-
-    return render_template("add_task.html", project=project, users=users)
-
-
-@app.route("/edit_task/<int:task_id>", methods=["GET", "POST"])
+@app.route('/edit_task/<int:task_id>', methods=['GET', 'POST'])
 @login_required
 def edit_task(task_id):
-    """Handles editing an existing task."""
+    """
+    Handles editing an existing task.
+    """
     task = Task.query.get_or_404(task_id)
-    project = task.project
-
-    # Only members can edit tasks
-    if current_user not in project.members:
-        flash("You must be a member of this project to edit tasks.", "danger")
+    if task.project.user_id != current_user.id:
+        flash('You are not authorized to edit this task.', 'danger')
         return redirect(url_for('dashboard'))
 
-    # Fetch all users to populate the assignee dropdown
-    users = User.query.all()
+    if request.method == 'POST':
+        task.title = request.form.get('title')
+        task.description = request.form.get('description')
+        task.status = request.form.get('status')
+        task.priority = request.form.get('priority')
+        due_date_str = request.form.get('due_date')
+        task.assigned_to_id = request.form.get('assigned_to_id')
 
-    if request.method == "POST":
-        task.title = request.form.get("title")
-        task.description = request.form.get("description")
-        task.status = request.form.get("status")
-        task.priority = request.form.get("priority")
-        due_date_str = request.form.get("due_date")
-        assigned_to_id = request.form.get("assigned_to_id")
-
-        task.due_date = datetime.strptime(due_date_str, "%Y-%m-%d") if due_date_str else None
-        task.assigned_to_id = assigned_to_id
+        if due_date_str:
+            task.due_date = datetime.strptime(due_date_str, '%Y-%m-%d')
+        else:
+            task.due_date = None
 
         db.session.commit()
-        flash("Task updated successfully!", "success")
-        return redirect(url_for("project_details", project_id=project.id))
+        flash('Task updated successfully!', 'success')
+        return redirect(url_for('project_details', project_id=task.project.id))
+    
+    users = User.query.all()
+    return render_template('edit_task.html', task=task, users=users)
 
-    return render_template("edit_task.html", task=task, users=users)
-
-
-@app.route("/delete_task/<int:task_id>", methods=["POST"])
+@app.route('/delete_task/<int:task_id>', methods=['POST'])
 @login_required
 def delete_task(task_id):
-    """Handles deleting a task."""
+    """
+    Deletes a specific task.
+    """
     task = Task.query.get_or_404(task_id)
-    project_id = task.project.id
-    # Only the project owner can delete tasks
-    if task.project.owner != current_user:
-        flash("You do not have permission to delete this task.", "danger")
-        return redirect(url_for("project_details", project_id=project_id))
-
-    db.session.delete(task)
-    db.session.commit()
-    flash("Task deleted successfully!", "success")
-    return redirect(url_for("project_details", project_id=project_id))
-
-
-# --- New Routes for Project Members ---
-
-@app.route("/project/<int:project_id>/members", methods=["GET"])
-@login_required
-def project_members(project_id):
-    """Displays the members of a project and provides a form to add new ones."""
-    project = Project.query.get_or_404(project_id)
-
-    # Only members can view the member list
-    if current_user not in project.members:
-        flash("You do not have access to this page.", "danger")
+    if task.project.user_id != current_user.id:
+        flash('You are not authorized to delete this task.', 'danger')
         return redirect(url_for('dashboard'))
 
-    # Get all users who are not already members of this project
-    # Note: This is an efficient way to get the list of potential members
-    # by using a query that excludes existing members.
-    existing_member_ids = [member.id for member in project.members]
-    potential_members = User.query.filter(User.id.notin_(existing_member_ids)).all()
-
-    return render_template(
-        "project_members.html",
-        project=project,
-        potential_members=potential_members
-    )
+    project_id = task.project.id
+    db.session.delete(task)
+    db.session.commit()
+    flash('Task deleted successfully!', 'success')
+    return redirect(url_for('project_details', project_id=project_id))
 
 
-@app.route("/project/<int:project_id>/add_member", methods=["POST"])
+@app.route('/update_task_status/<int:task_id>/<new_status>', methods=['POST'])
 @login_required
-def add_member_to_project(project_id):
-    """Adds a new member to a project."""
-    project = Project.query.get_or_404(project_id)
-    # Only the project owner can add members
-    if project.owner != current_user:
-        flash("You do not have permission to add members to this project.", "danger")
-        return redirect(url_for('project_members', project_id=project_id))
+def update_task_status(task_id, new_status):
+    """
+    Updates the status of a task from the kanban board.
+    """
+    task = Task.query.get_or_404(task_id)
+    if task.project.user_id != current_user.id:
+        flash('You are not authorized to update this task.', 'danger')
+        return redirect(url_for('dashboard'))
 
-    member_id = request.form.get("member_id")
-    member = User.query.get_or_404(member_id)
+    task.status = new_status
+    db.session.commit()
+    flash(f'Task status updated to {new_status}!', 'success')
+    return redirect(url_for('project_details', project_id=task.project.id))
 
-    # Check if the user is already a member before adding
-    if member not in project.members:
-        project.members.append(member)
-        db.session.commit()
-        flash(f"{member.username} has been added to the project.", "success")
-    else:
-        flash(f"{member.username} is already a member.", "info")
-
-    return redirect(url_for('project_members', project_id=project_id))
-
-
-@app.route("/project/<int:project_id>/remove_member/<int:member_id>", methods=["POST"])
-@login_required
-def remove_member_from_project(project_id, member_id):
-    """Removes a member from a project."""
-    project = Project.query.get_or_404(project_id)
-    member_to_remove = User.query.get_or_404(member_id)
-
-    # Only the project owner can remove members
-    if project.owner != current_user:
-        flash("You do not have permission to remove members from this project.", "danger")
-        return redirect(url_for('project_members', project_id=project_id))
-
-    # Prevent the owner from removing themselves
-    if member_to_remove == current_user:
-        flash("You cannot remove yourself from a project you own. Delete the project instead.", "danger")
-        return redirect(url_for('project_members', project_id=project_id))
-
-    # Check if the user is a member before removing
-    if member_to_remove in project.members:
-        project.members.remove(member_to_remove)
-        db.session.commit()
-        flash(f"{member_to_remove.username} has been removed from the project.", "success")
-    else:
-        flash(f"{member_to_remove.username} is not a member of this project.", "info")
-
-    return redirect(url_for('project_members', project_id=project_id))
+# This part ensures the application runs when the script is executed directly
+# It runs a development server, which is useful for testing.
+if __name__ == '__main__':
+    app.run(debug=True)
