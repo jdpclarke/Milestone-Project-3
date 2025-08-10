@@ -393,6 +393,44 @@ def profile():
     return render_template("profile.html", user=current_user)
 
 
+# Edit Profile route
+@app.route("/profile/edit", methods=["GET", "POST"])
+@login_required
+def edit_profile():
+    """
+    Handles editing the current user's profile.
+    """
+    if request.method == "POST":
+        new_username = request.form.get("username")
+        new_email = request.form.get("email")
+
+        # --- VALIDATION ---
+        if not new_username or not new_email:
+            flash("Username and Email are required.", "danger")
+            return redirect(url_for("edit_profile"))
+
+        # Check for existing username or email, but allow the current user's own.
+        existing_user_by_username = User.query.filter(User.username == new_username, User.id != current_user.id).first()
+        existing_user_by_email = User.query.filter(User.email == new_email, User.id != current_user.id).first()
+
+        if existing_user_by_username:
+            flash("Username already exists. Please choose a different one.", "danger")
+            return redirect(url_for("edit_profile"))
+
+        if existing_user_by_email:
+            flash("Email already exists. Please choose a different one.", "danger")
+            return redirect(url_for("edit_profile"))
+
+        # Update the user's information
+        current_user.username = new_username
+        current_user.email = new_email
+        db.session.commit()
+        flash("Profile updated successfully!", "success")
+        return redirect(url_for("profile"))
+
+    return render_template("edit_profile.html", user=current_user)
+
+
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)
