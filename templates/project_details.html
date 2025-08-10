@@ -19,42 +19,42 @@
     </div>
 </div>
 
-<!-- Sorting controls -->
+<!-- All action buttons are now in a single responsive container -->
 <div class="row mb-4">
-    <div class="col">
-        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
-            <a href="{{ url_for('add_task', project_id=project.id) }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Add New Task
-            </a>
+    <div class="col d-flex flex-column flex-md-row justify-content-md-between align-items-center gap-2">
+        <a href="{{ url_for('add_task', project_id=project.id) }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add New Task
+        </a>
 
-            <div class="d-flex align-items-center gap-2">
-                <!-- Sort By Buttons -->
-                <div class="btn-group" role="group" aria-label="Sort by options">
-                    <a href="{{ url_for('project_details', project_id=project.id, sort_by='created_at', sort_order=sort_order) }}"
-                        class="btn {% if sort_by == 'created_at' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">Creation Date</a>
-                    <a href="{{ url_for('project_details', project_id=project.id, sort_by='due_date', sort_order=sort_order) }}"
-                        class="btn {% if sort_by == 'due_date' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">Due Date</a>
-                    <a href="{{ url_for('project_details', project_id=project.id, sort_by='priority', sort_order=sort_order) }}"
-                        class="btn {% if sort_by == 'priority' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">Priority</a>
-                </div>
+        <!-- Sort buttons group -->
+        <div class="d-flex flex-wrap justify-content-center justify-content-md-end gap-2">
+            <!-- Sort By Buttons -->
+            <div class="btn-group" role="group" aria-label="Sort by options">
+                <a href="{{ url_for('project_details', project_id=project.id, sort_by='created_at', sort_order=sort_order) }}"
+                    class="btn {% if sort_by == 'created_at' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">Creation Date</a>
+                <a href="{{ url_for('project_details', project_id=project.id, sort_by='due_date', sort_order=sort_order) }}"
+                    class="btn {% if sort_by == 'due_date' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">Due Date</a>
+                <a href="{{ url_for('project_details', project_id=project.id, sort_by='priority', sort_order=sort_order) }}"
+                    class="btn {% if sort_by == 'priority' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">Priority</a>
+            </div>
 
-                <!-- Sort Order Buttons -->
-                <div class="btn-group" role="group" aria-label="Sort order options">
-                    <a href="{{ url_for('project_details', project_id=project.id, sort_by=sort_by, sort_order='asc') }}"
-                        class="btn {% if sort_order == 'asc' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm" title="Ascending">
-                        <i class="fas fa-arrow-up"></i>
-                    </a>
-                    <a href="{{ url_for('project_details', project_id=project.id, sort_by=sort_by, sort_order='desc') }}"
-                        class="btn {% if sort_order == 'desc' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm" title="Descending">
-                        <i class="fas fa-arrow-down"></i>
-                    </a>
-                </div>
+            <!-- Sort Order Buttons -->
+            <div class="btn-group" role="group" aria-label="Sort order options">
+                <a href="{{ url_for('project_details', project_id=project.id, sort_by=sort_by, sort_order='asc') }}"
+                    class="btn {% if sort_order == 'asc' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm" title="Ascending">
+                    <i class="fas fa-arrow-up"></i>
+                </a>
+                <a href="{{ url_for('project_details', project_id=project.id, sort_by=sort_by, sort_order='desc') }}"
+                    class="btn {% if sort_order == 'desc' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm" title="Descending">
+                    <i class="fas fa-arrow-down"></i>
+                </a>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row kanban-board">
+<!-- Kanban columns are now centered with horizontal padding for better mobile display -->
+<div class="row kanban-board px-2">
     <!-- To Do Column -->
     <div class="col-md-4 mb-3">
         <div class="kanban-column">

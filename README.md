@@ -106,22 +106,20 @@ In summary, CheckMate addresses a significant need by providing a user-friendly 
 
 #### Feature 4: Efficient Task Filtering & Sorting
 
-**As a "CheckMate" user,** I want to easily filter and sort tasks by various criteria (e.g., due date, priority, status, assigned user, project) so that I can quickly find and prioritise relevant tasks.
+**As a "CheckMate" user,** I want to easily sort tasks by various criteria (e.g., due date, priority, created) so that I can quickly find and prioritise relevant tasks. I want these to be separated by To-Do, In Progress and Completed to show progress.
 
 **Acceptance Criteria:**
 
-- A set of filter options is available (e.g., dropdowns, checkboxes) for:
-  - Task status (To Do, In Progress, Completed, Blocked).
+- A set of filter options is available (e.g., dropdowns, checkboxes, buttons) for:
+  - Task status (To Do, In Progress, Completed).
   - Task priority (High, Medium, Low).
 - Users can sort tasks by due date (ascending/descending), priority, or creation date.
 - Applying filters or sorting immediately updates the displayed task list without a full page reload.
-- Multiple filters can be applied simultaneously.
 
 **Tasks:**
 
 - Implement backend Flask routes that accept query parameters for filtering and sorting.
 - Modify database queries to apply WHERE clauses for filters and ORDER BY clauses for sorting based on user input.
-- Develop frontend JavaScript to capture user selections from filter/sort controls.
 - Implement AJAX calls to the backend to fetch filtered/sorted data.
 - Update the HTML DOM dynamically with the new task list.
 - Implement CSS to visually indicate active filters.
@@ -163,7 +161,7 @@ All images used on the website are optimised for web performance to ensure fast 
 
 - **Comprehensive Task Organisation and Tracking:**
   - Allows users to create, view, edit, and delete tasks with details such as title, description, due date, priority, and associated project.
-  - Enables users to update the status of tasks (e.g., 'To Do', 'In Progress', 'Completed', 'Blocked') for clear progress tracking.
+  - Enables users to update the status of tasks (e.g., 'To Do', 'In Progress', 'Completed') for clear progress tracking.
   - Provides visual indicators for task status and completion, making it easy to see progress at a glance.
 
 - **Efficient Task Filtering and Prioritisation:**
