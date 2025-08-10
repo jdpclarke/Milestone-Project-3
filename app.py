@@ -296,7 +296,7 @@ def add_task(project_id):
             return redirect(url_for("add_task", project_id=project.id))
 
         # Convert due_date string to a datetime object, if it exists
-        due_date = datetime.strptime(due_date_str, '%d/%m/%Y') if due_date_str else None
+        due_date = datetime.strptime(due_date_str, '%Y-%m-%d') if due_date_str else None
 
         # Get the assigned user object based on the ID from the form
         assigned_to = User.query.get(assigned_to_id)
@@ -352,7 +352,7 @@ def edit_task(task_id):
             return redirect(url_for("edit_task", task_id=task.id))
 
         # Convert due_date string to a datetime object, if it exists
-        task.due_date = datetime.strptime(due_date_str, '%d/%m/%Y') if due_date_str else None
+        task.due_date = datetime.strptime(due_date_str, '%Y-%m-%d') if due_date_str else None
 
         # Update the assignee
         task.assignee = User.query.get(assigned_to_id)

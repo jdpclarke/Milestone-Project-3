@@ -271,3 +271,11 @@ body {
   text-align: center;
   border-top: 1px solid var(--color-boulder);
 }
+
+/* Media Query: Adjustments for smaller screens to make the logo responsive */
+@media (max-width: 576px) {
+  .main-logo {
+    max-width: 70%; /* Make the logo smaller on mobile */
+    margin-bottom: 2rem; /* Add some space below it */
+  }
+}
