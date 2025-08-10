@@ -1,5 +1,5 @@
 {% extends "master.html" %} {% block content %}
-<div class="jumbotron text-center">
+<div class="jumbotron text-center mb-5">
   {% if current_user.is_authenticated %}
   <div class="text-center mb-5">
     <img
@@ -7,7 +7,7 @@
       alt="CheckMate Logo"
       class="main-logo"
     />
-  <h1 class="display-4">Welcome back, {{ current_user.username }}!</h1>
+  <h1 class="display-4">Welcome back, {{ current_user.FirstName }}!</h1>
   <p class="lead">You are logged in.</p>
   <hr class="my-4" />
   <a
