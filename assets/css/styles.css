@@ -115,16 +115,46 @@ h6 {
   border-color: var(--color-primary-action-blue);
   transition: background-color 0.2s, color 0.2s;
 }
+
 .btn-outline-primary:hover {
   background-color: var(--color-primary-action-blue);
   color: var(--color-mercury);
 }
+
 .btn-outline-danger {
   color: var(--color-danger-red);
   border-color: var(--color-danger-red);
   transition: background-color 0.2s, color 0.2s;
 }
+
 .btn-outline-danger:hover {
   background-color: var(--color-danger-red);
   color: var(--color-mercury);
+}
+
+/* Alert Messages */
+.alert {
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px var(--color-limed-spruce);
+  border-width: 1px;
+  border-style: solid;
+  font-weight: 500;
+}
+
+.alert-success {
+  background-color: var(--color-wild-sand);
+  color: var(--color-success-green);
+  border-color: var(--color-success-green);
+}
+
+.alert-danger {
+  background-color: var(--color-wild-sand);
+  color: var(--color-danger-red);
+  border-color: var(--color-danger-red);
+}
+
+.alert-info {
+  background-color: var(--color-wild-sand);
+  color: var(--color-primary-action-blue);
+  border-color: var(--color-primary-action-blue);
 }
