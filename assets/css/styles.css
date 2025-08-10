@@ -78,6 +78,15 @@ body {
   margin-right: auto;
 }
 
+/* Styling for the logo on the login page */
+.login-logo {
+  max-width: 200px;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Custom styling for card headers */
 .card-header-custom {
     background-color: var(--color-limed-spruce); /* A dark gray background */
