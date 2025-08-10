@@ -203,8 +203,19 @@ def project_details(project_id):
     if project.owner != current_user:
         flash("You do not have permission to view this project.", "danger")
         return redirect(url_for('dashboard'))
+    
+    # Filter tasks by their status and pass them to the template
+    tasks_to_do = Task.query.filter_by(project=project, status="To Do").order_by(Task.due_date).all()
+    tasks_in_progress = Task.query.filter_by(project=project, status="In Progress").order_by(Task.due_date).all()
+    tasks_done = Task.query.filter_by(project=project, status="Done").order_by(Task.due_date).all()
 
-    return render_template("project_details.html", project=project)
+    return render_template(
+        "project_details.html",
+        project=project,
+        tasks_to_do=tasks_to_do,
+        tasks_in_progress=tasks_in_progress,
+        tasks_done=tasks_done
+    )
 
 
 # Project Delete route
