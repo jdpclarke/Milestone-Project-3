@@ -10,7 +10,7 @@ from sqlalchemy import text
 # Ensure the Flask app context is pushed
 with app.app_context():
     print("Dropping all tables with CASCADE...")
-    
+
     # Use raw SQL to drop the entire public schema, which forces
     # all tables and their dependent objects (like foreign keys) to be dropped.
     try:

@@ -1,0 +1,74 @@
+{% extends "master.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Project Members for "{{ project.name }}"</h1>
+            <a href="{{ url_for('project_details', project_id=project.id) }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Project
+            </a>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header card-header-custom">
+                <h4 class="mb-0">Current Members</h4>
+            </div>
+            <div class="card-body">
+                {% if project.members.all() %}
+                    <ul class="list-group list-group-flush">
+                        {% for member in project.members %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-user-circle me-2"></i>
+                                {{ member.username }}
+                                {% if member == project.owner %}
+                                    <span class="badge rounded-pill bg-primary ms-2">Owner</span>
+                                {% endif %}
+                            </div>
+                            {% if current_user == project.owner and member != current_user %}
+                                <form action="{{ url_for('remove_member_from_project', project_id=project.id, member_id=member.id) }}" method="POST">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-user-minus"></i> Remove
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-center text-muted">No members have been added to this project yet.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Add Member Form -->
+        {% if current_user == project.owner %}
+        <div class="card">
+            <div class="card-header card-header-custom">
+                <h4 class="mb-0">Add New Member</h4>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('add_member_to_project', project_id=project.id) }}" method="POST">
+                    <div class="mb-3">
+                        <label for="member_id" class="form-label">Select a User</label>
+                        <select class="form-select" id="member_id" name="member_id" required>
+                            {% if potential_members %}
+                                {% for user in potential_members %}
+                                    <option value="{{ user.id }}">{{ user.username }}</option>
+                                {% endfor %}
+                            {% else %}
+                                <option value="" disabled>No new users to add.</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> Add Member
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
