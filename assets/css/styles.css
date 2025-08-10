@@ -158,3 +158,33 @@ h6 {
   color: var(--color-primary-action-blue);
   border-color: var(--color-primary-action-blue);
 }
+
+/* Kanban Task Board Styling */
+.kanban-column-header {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--color-mercury);
+  border-bottom: 2px solid var(--color-silver);
+  margin-bottom: 1rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.task-card {
+  cursor: pointer;
+  background-color: var(--color-mercury);
+  border-left: 5px solid var(--color-primary-action-blue);
+  margin-bottom: 1rem;
+}
+
+.task-card h6 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-limed-spruce);
+}
+
+.task-card small {
+  font-size: 0.75rem;
+  color: var(--color-boulder);
+}
