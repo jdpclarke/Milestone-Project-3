@@ -1,41 +1,17 @@
-{% extends "master.html" %}
-
-{% block content %}
+{% extends "master.html" %} {% block content %}
 <div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">User Profile</h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Username</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        {{ user.username }}
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Email</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        {{ user.email }}
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Member Since</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        {{ user.created_at.strftime('%B %d, %Y') }}
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="col-md-8">
+    <div class="card profile-card">
+      <div class="card-body text-center">
+        <img
+          src="https://placehold.co/150x150/b0b0b0/ffffff?text={{ user.username[0]|upper }}"
+          alt="Profile Picture"
+          class="mb-3"
+        />
+        <h2 class="card-title">{{ user.username }}</h2>
+        <h5 class="text-muted">{{ user.email }}</h5>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
