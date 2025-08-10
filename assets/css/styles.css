@@ -191,7 +191,20 @@ h6 {
 
 /* Project Cards on Dashboard */
 .project-card {
-    background-color: var(--color-mercury);
-    border-left: 5px solid var(--color-primary-action-blue);
-    margin-bottom: 1.5rem;
+  background-color: var(--color-mercury);
+  border-left: 5px solid var(--color-primary-action-blue);
+  margin-bottom: 1.5rem;
+}
+
+/* Status-specific task card styling for visual cues */
+.task-card[data-status="To Do"] {
+  border-left-color: var(--color-boulder);
+}
+
+.task-card[data-status="In Progress"] {
+  border-left-color: var(--color-primary-action-blue);
+}
+
+.task-card[data-status="Done"] {
+  border-left-color: var(--color-success-green);
 }
