@@ -278,8 +278,6 @@ def add_task(project_id):
     Handles adding a new task to a specific project.
     """
     project = Project.query.get_or_404(project_id)
-    # Fetch all users to populate the assignee dropdown
-    users = User.query.order_by(User.username).all()
 
     # Ensure only the owner can add tasks to the project
     if project.owner != current_user:
@@ -293,7 +291,6 @@ def add_task(project_id):
         due_date_str = request.form.get("due_date")
         status = request.form.get("status")
         priority = request.form.get("priority")
-        assigned_to_id = request.form.get("assigned_to_id")
 
         # --- VALIDATION ---
         if not title:
@@ -303,9 +300,6 @@ def add_task(project_id):
         # Convert due_date string to a datetime object, if it exists
         due_date = datetime.strptime(due_date_str, '%Y-%m-%d') if due_date_str else None
 
-        # Get the assigned user object based on the ID from the form
-        assigned_to = User.query.get(assigned_to_id)
-
         # Create a new Task object
         new_task = Task(
             title=title,
@@ -314,7 +308,6 @@ def add_task(project_id):
             priority=priority,
             due_date=due_date,
             project=project,
-            assignee=assigned_to
         )
 
         db.session.add(new_task)
@@ -323,7 +316,7 @@ def add_task(project_id):
         flash("Task created successfully!", "success")
         return redirect(url_for('project_details', project_id=project.id))
 
-    return render_template("add_task.html", project=project, users=users)
+    return render_template("add_task.html", project=project)
 
 
 # Edit Task route
@@ -334,11 +327,9 @@ def edit_task(task_id):
     Handles editing an existing task.
     """
     task = Task.query.get_or_404(task_id)
-    # Fetch all users to populate the assignee dropdown
-    users = User.query.order_by(User.username).all()
 
     # Ensure only the assignee or project owner can edit the task
-    if task.assignee != current_user and task.project.owner != current_user:
+    if task.project.owner != current_user:
         flash("You do not have permission to edit this task.", "danger")
         return redirect(url_for('dashboard'))
 
@@ -349,7 +340,6 @@ def edit_task(task_id):
         due_date_str = request.form.get("due_date")
         task.status = request.form.get("status")
         task.priority = request.form.get("priority")
-        assigned_to_id = request.form.get("assigned_to_id")
 
         # --- VALIDATION ---
         if not task.title:
@@ -359,14 +349,11 @@ def edit_task(task_id):
         # Convert due_date string to a datetime object, if it exists
         task.due_date = datetime.strptime(due_date_str, '%Y-%m-%d') if due_date_str else None
 
-        # Update the assignee
-        task.assignee = User.query.get(assigned_to_id)
-
         db.session.commit()
         flash("Task updated successfully!", "success")
         return redirect(url_for('project_details', project_id=task.project.id))
 
-    return render_template("edit_task.html", task=task, users=users)
+    return render_template("edit_task.html", task=task)
 
 
 # Delete Task route
@@ -377,7 +364,7 @@ def delete_task(task_id):
     task = Task.query.get_or_404(task_id)
 
     # Ensure only the assignee or project owner can delete the task
-    if task.assignee != current_user and task.project.owner != current_user:
+    if task.project.owner != current_user:
         flash("You do not have permission to delete this task.", "danger")
         return redirect(url_for("dashboard"))
 

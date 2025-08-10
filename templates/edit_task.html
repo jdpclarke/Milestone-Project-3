@@ -40,14 +40,6 @@
                                 <option value="High" {% if task.priority == 'High' %}selected{% endif %}>High</option>
                             </select>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="assigned_to_id" class="form-label">Assignee</label>
-                            <select class="form-select" id="assigned_to_id" name="assigned_to_id" required>
-                                {% for user in users %}
-                                <option value="{{ user.id }}" {% if user.id == task.assignee.id %}selected{% endif %}>{{ user.username }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
                     </div>
                     <div class="d-flex justify-content-between mt-2">
                     <a href="{{ url_for('project_details', project_id=task.project.id) }}" class="btn btn-secondary"><i class="fas fa-xmark"></i> Cancel</a>

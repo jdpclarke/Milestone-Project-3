@@ -246,6 +246,22 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Priority text styling based on priority level */
+.priority-low {
+  color: var(--color-success-green);
+  font-weight: bold;
+}
+
+.priority-medium {
+  color: var(--color-warning-yellow);
+  font-weight: bold;
+}
+
+.priority-high {
+  color: var(--color-danger-red);
+  font-weight: bold;
+}
+
 /* Muted text color for a consistent look */
 .text-muted {
   color: var(--color-boulder) !important;

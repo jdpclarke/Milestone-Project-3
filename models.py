@@ -11,8 +11,6 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
-    first_name = db.Column(db.String(64), nullable=True)
-    last_name = db.Column(db.String(64), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Relationship: A user can create many projects
@@ -62,12 +60,11 @@ class Task(db.Model):
     priority = db.Column(db.String(64), default='Medium', nullable=False)
     due_date = db.Column(db.DateTime)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-    # Relationship: A task belongs to a project
-    project_id = db.Column(db.Integer, db.ForeignKey('project.id'),
-                           nullable=False)
-    # Relationship: A task is assigned to a user
-    assigned_to_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # Relationships
+    # A task belongs to one project
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    # A task can be assigned to one user
+    assigned_to_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return f'<Task {self.title}>'
