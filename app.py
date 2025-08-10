@@ -175,6 +175,7 @@ def add_project():
 
     return render_template("add_project.html")
 
+
 # Route to edit an existing project
 @app.route("/edit_project/<int:project_id>", methods=["GET", "POST"])
 @login_required
@@ -192,7 +193,7 @@ def edit_project(project_id):
     if request.method == "POST":
         new_name = request.form.get("name")
         new_description = request.form.get("description")
-        
+
         # --- VALIDATION ---
         if not new_name:
             flash("Project name is required.", "danger")
@@ -205,6 +206,7 @@ def edit_project(project_id):
         return redirect(url_for('dashboard'))
 
     return render_template("edit_project.html", project=project)
+
 
 # Project Details route
 @app.route("/projects/<int:project_id>")

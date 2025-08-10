@@ -5,7 +5,6 @@ load_dotenv()
 
 from app import app
 from db import db
-from models import User, Project, Task
 
 # Ensure the Flask app context is pushed
 with app.app_context():
