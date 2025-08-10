@@ -13,6 +13,7 @@ from flask_login import (
 # Local imports
 from db import db
 from models import User, Project, Task
+from settings import Config
 
 # Initialize Flask app
 app = Flask(__name__, static_folder='assets')
@@ -21,10 +22,7 @@ app = Flask(__name__, static_folder='assets')
 # Load configuration from config.py
 # Heroku will provide its own DATABASE_URL.
 # The dotenv will handle local environment variables.
-app.config.from_object('config.Config')
-
-# Load configuration from config.py
-app.config.from_object('config.Config')
+app.config.from_object(Config)
 
 
 # Initialize SQLAlchemy
