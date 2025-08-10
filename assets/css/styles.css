@@ -158,6 +158,30 @@ body {
     box-shadow: 0 0 0 0.25rem rgba(70, 130, 180, 0.25); /* Focus highlight */
 }
 
+/* Alert Messages */
+.alert {
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-width: 1px;
+    border-style: solid;
+    font-weight: 500;
+}
+.alert-success {
+    background-color: var(--color-wild-sand);
+    color: var(--color-success-green);
+    border-color: var(--color-success-green);
+}
+.alert-danger {
+    background-color: var(--color-wild-sand);
+    color: var(--color-danger-red);
+    border-color: var(--color-danger-red);
+}
+.alert-info {
+    background-color: var(--color-wild-sand);
+    color: var(--color-warning-yellow);
+    border-color: var(--color-warning-yellow);
+}
+
 /* Kanban Task Board */
 /* Styling for the main kanban board columns */
 .kanban-column {
