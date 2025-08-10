@@ -78,6 +78,18 @@ body {
   margin-right: auto;
 }
 
+/* Custom styling for card headers */
+.card-header-custom {
+    background-color: var(--color-limed-spruce); /* A dark gray background */
+    color: var(--color-wild-sand); /* White text */
+    padding: 1rem; /* Add some padding for spacing */
+}
+
+/* Ensure the heading inside the card header also has a white color */
+.card-header-custom h4 {
+    color: var(--color-wild-sand);
+}
+
 /* Buttons */
 /* General button styling for all button types */
 .btn {

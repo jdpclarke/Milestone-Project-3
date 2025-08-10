@@ -4,7 +4,7 @@
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header card-header-custom">
                 <h3 class="mb-0">Edit Task "{{ task.title }}"</h3>
             </div>
             <div class="card-body">
@@ -49,8 +49,10 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-circle-check"></i> Update Task</button>
+                    <div class="d-flex justify-content-between mt-2">
                     <a href="{{ url_for('project_details', project_id=task.project.id) }}" class="btn btn-secondary"><i class="fas fa-xmark"></i> Cancel</a>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-circle-check"></i> Update Task</button>
+                    </div>
                 </form>
             </div>
         </div>

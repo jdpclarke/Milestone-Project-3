@@ -19,6 +19,11 @@ app = Flask(__name__, static_folder='assets')
 
 
 # Load configuration from config.py
+# Heroku will provide its own DATABASE_URL.
+# The dotenv will handle local environment variables.
+app.config.from_object('config.Config')
+
+# Load configuration from config.py
 app.config.from_object('config.Config')
 
 
