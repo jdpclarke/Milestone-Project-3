@@ -414,7 +414,7 @@ def change_password():
         if new_password != confirm_new_password:
             flash("New passwords do not match.", "danger")
             return redirect(url_for('change_password'))
-        
+
         # Check if new password is not the same as current one
         if current_user.check_password(new_password):
             flash("New password cannot be the same as the old password.", "danger")
