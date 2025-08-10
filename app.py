@@ -114,31 +114,32 @@ def project_details(project_id):
     sort_by = request.args.get('sort_by', 'created_at')
     status_filter = request.args.get('status', 'all')
 
-    # Get all tasks for the project
-    all_tasks = project.tasks.all()
+    # Query tasks for the project
+    tasks_query = Task.query.filter_by(project_id=project_id)
 
     # Filter tasks by status if a specific status is provided
     if status_filter != 'all':
-        tasks = [task for task in all_tasks if task.status == status_filter]
-    else:
-        tasks = all_tasks
+        tasks_query = tasks_query.filter_by(status=status_filter)
+
+    # Get all tasks for the project and then sort them
+    all_tasks = tasks_query.all()
 
     # Sort the tasks based on the 'sort_by' parameter
     if sort_by == 'due_date':
         # Sort by due date, placing tasks with no due date at the end
-        tasks.sort(key=lambda x: (x.due_date is None, x.due_date))
+        all_tasks.sort(key=lambda x: (x.due_date is None, x.due_date))
     elif sort_by == 'priority':
         # Define a mapping for priority levels to sort them correctly
         priority_order = {'High': 1, 'Medium': 2, 'Low': 3}
-        tasks.sort(key=lambda x: priority_order.get(x.priority, 99))
+        all_tasks.sort(key=lambda x: priority_order.get(x.priority, 99))
     else:
         # Default to sorting by creation date (newest first)
-        tasks.sort(key=lambda x: x.created_at, reverse=True)
+        all_tasks.sort(key=lambda x: x.created_at, reverse=True)
 
     return render_template(
         'project_details.html',
         project=project,
-        tasks=tasks,
+        tasks=all_tasks,
         sort_by=sort_by,
         status_filter=status_filter
     )

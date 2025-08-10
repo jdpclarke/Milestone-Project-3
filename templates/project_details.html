@@ -27,6 +27,16 @@
                 <i class="fas fa-plus"></i> Add New Task
             </a>
             <div class="d-flex align-items-center gap-2">
+                <!-- Filtering Buttons -->
+                <a href="{{ url_for('project_details', project_id=project.id, sort_by=sort_by, status='all') }}"
+                    class="btn {% if status_filter == 'all' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">All</a>
+                <a href="{{ url_for('project_details', project_id=project.id, sort_by=sort_by, status='To Do') }}"
+                    class="btn {% if status_filter == 'To Do' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">To Do</a>
+                <a href="{{ url_for('project_details', project_id=project.id, sort_by=sort_by, status='In Progress') }}"
+                    class="btn {% if status_filter == 'In Progress' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">In Progress</a>
+                <a href="{{ url_for('project_details', project_id=project.id, sort_by=sort_by, status='Done') }}"
+                    class="btn {% if status_filter == 'Done' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm">Done</a>
+
                 <!-- Sorting Dropdown -->
                 <div class="dropdown">
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
