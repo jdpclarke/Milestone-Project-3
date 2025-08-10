@@ -154,6 +154,11 @@ def add_project():
         name_from_form = request.form.get("name")
         description_from_form = request.form.get("description")
 
+        # --- VALIDATION ---
+        if not name_from_form:
+            flash("Project name is required.", "danger")
+            return redirect(url_for("add_project"))
+
         # Create a new Project object
         new_project = Project(
             name=name_from_form,
@@ -185,8 +190,16 @@ def edit_project(project_id):
         return redirect(url_for('dashboard'))
 
     if request.method == "POST":
-        project.name = request.form.get("name")
-        project.description = request.form.get("description")
+        new_name = request.form.get("name")
+        new_description = request.form.get("description")
+        
+        # --- VALIDATION ---
+        if not new_name:
+            flash("Project name is required.", "danger")
+            return redirect(url_for('edit_project', project_id=project.id))
+
+        project.name = new_name
+        project.description = new_description
         db.session.commit()
         flash("Project updated successfully!", "success")
         return redirect(url_for('dashboard'))
@@ -270,8 +283,13 @@ def add_task(project_id):
         priority = request.form.get("priority")
         assigned_to_id = request.form.get("assigned_to_id")
 
+        # --- VALIDATION ---
+        if not title:
+            flash("Task title is required.", "danger")
+            return redirect(url_for("add_task", project_id=project.id))
+
         # Convert due_date string to a datetime object, if it exists
-        due_date = datetime.strptime(due_date_str, '%Y-%m-%d') if due_date_str else None
+        due_date = datetime.strptime(due_date_str, '%d/%m/%Y') if due_date_str else None
 
         # Get the assigned user object based on the ID from the form
         assigned_to = User.query.get(assigned_to_id)
@@ -321,8 +339,13 @@ def edit_task(task_id):
         task.priority = request.form.get("priority")
         assigned_to_id = request.form.get("assigned_to_id")
 
+        # --- VALIDATION ---
+        if not task.title:
+            flash("Task title is required.", "danger")
+            return redirect(url_for("edit_task", task_id=task.id))
+
         # Convert due_date string to a datetime object, if it exists
-        task.due_date = datetime.strptime(due_date_str, '%Y-%m-%d') if due_date_str else None
+        task.due_date = datetime.strptime(due_date_str, '%d/%m/%Y') if due_date_str else None
 
         # Update the assignee
         task.assignee = User.query.get(assigned_to_id)
