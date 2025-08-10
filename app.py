@@ -48,6 +48,7 @@ def load_user(user_id):
 
 # --- ROUTES ---
 
+# Default route
 @app.route("/")
 def index():
     """
@@ -58,6 +59,7 @@ def index():
     return render_template('index.html')
 
 
+# Dashboard route
 @app.route("/dashboard")
 @login_required
 def dashboard():
@@ -68,6 +70,7 @@ def dashboard():
     return render_template('dashboard.html', projects=projects)
 
 
+# Add Project route
 @app.route("/add_project", methods=['GET', 'POST'])
 @login_required
 def add_project():
@@ -94,6 +97,7 @@ def add_project():
     return render_template('add_project.html')
 
 
+# Project Details route
 @app.route("/project/<int:project_id>", methods=['GET'])
 @login_required
 def project_details(project_id):
@@ -141,6 +145,7 @@ def project_details(project_id):
     )
 
 
+# Edit Project route
 @app.route("/edit_project/<int:project_id>", methods=['GET', 'POST'])
 @login_required
 def edit_project(project_id):
@@ -162,6 +167,7 @@ def edit_project(project_id):
     return render_template('edit_project.html', project=project)
 
 
+# Delete Project route
 @app.route("/delete_project/<int:project_id>", methods=['POST'])
 @login_required
 def delete_project(project_id):
@@ -183,6 +189,7 @@ def delete_project(project_id):
     return redirect(url_for('dashboard'))
 
 
+# Add Task route
 @app.route("/add_task/<int:project_id>", methods=['GET', 'POST'])
 @login_required
 def add_task(project_id):
@@ -227,6 +234,7 @@ def add_task(project_id):
     return render_template('add_task.html', project=project, users=users)
 
 
+# Edit Task route
 @app.route("/edit_task/<int:task_id>", methods=['GET', 'POST'])
 @login_required
 def edit_task(task_id):
@@ -257,6 +265,7 @@ def edit_task(task_id):
     return render_template('edit_task.html', task=task, users=users)
 
 
+# Delete Task route
 @app.route("/delete_task/<int:task_id>", methods=['POST'])
 @login_required
 def delete_task(task_id):
@@ -275,42 +284,44 @@ def delete_task(task_id):
     return redirect(url_for('project_details', project_id=project_id))
 
 
-@app.route("/register", methods=['GET', 'POST'])
+# Register route
+@app.route("/register", methods=["GET", "POST"])
 def register():
     """
-    Handles user registration.
+    Handles new user registration.
     """
     if current_user.is_authenticated:
-        return redirect(url_for('dashboard'))
+        return redirect(url_for("home"))
+    if request.method == "POST":
+        username = request.form.get("username")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        first_name = request.form.get("first_name")
+        last_name = request.form.get("last_name")
 
-    if request.method == 'POST':
-        username = request.form.get('username')
-        email = request.form.get('email')
-        password = request.form.get('password')
-
-        # --- VALIDATION ---
-        if not username or not email or not password:
+        # Basic validation
+        if not username or not email or not password or not first_name or not last_name:
             flash("All fields are required.", "danger")
-            return redirect(url_for('register'))
+            return redirect(url_for("register"))
 
         if User.query.filter_by(username=username).first():
-            flash("Username already exists. Please choose a different one.", "danger")
-            return redirect(url_for('register'))
+            flash("Username already exists.", "danger")
+            return redirect(url_for("register"))
 
         if User.query.filter_by(email=email).first():
-            flash("Email already exists. Please choose a different one.", "danger")
-            return redirect(url_for('register'))
+            flash("Email already exists.", "danger")
+            return redirect(url_for("register"))
 
-        new_user = User(username=username, email=email)
+        new_user = User(username=username, email=email, first_name=first_name, last_name=last_name)
         new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()
         flash("Registration successful! You can now log in.", "success")
-        return redirect(url_for('login'))
+        return redirect(url_for("login"))
+    return render_template("register.html")
 
-    return render_template('register.html')
 
-
+# Login route
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     """
@@ -335,6 +346,7 @@ def login():
     return render_template('login.html')
 
 
+# Logout route
 @app.route("/logout")
 @login_required
 def logout():
@@ -346,6 +358,7 @@ def logout():
     return redirect(url_for('index'))
 
 
+# Profile route
 @app.route("/profile")
 @login_required
 def profile():
@@ -355,7 +368,8 @@ def profile():
     return render_template('profile.html', user=current_user)
 
 
-@app.route("/edit_profile", methods=['GET', 'POST'])
+# Edit Profile route
+@app.route("/profile/edit", methods=["GET", "POST"])
 @login_required
 def edit_profile():
     """
@@ -368,8 +382,8 @@ def edit_profile():
         new_last_name = request.form.get("last_name")
 
         # --- VALIDATION ---
-        if not new_username or not new_email:
-            flash("Username and Email are required.", "danger")
+        if not new_username or not new_email or not new_first_name or not new_last_name:
+            flash("All fields are required.", "danger")
             return redirect(url_for("edit_profile"))
 
         # Check for existing username or email, but allow the current user's own.
@@ -396,6 +410,7 @@ def edit_profile():
     return render_template("edit_profile.html", user=current_user)
 
 
+# Change Password route
 @app.route("/change_password", methods=['GET', 'POST'])
 @login_required
 def change_password():
