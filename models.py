@@ -19,11 +19,6 @@ class User(UserMixin, db.Model):
     projects = db.relationship(
         'Project', backref='owner', lazy='dynamic'
     )
-    # Relationship: A user can be assigned many tasks
-    assigned_tasks = db.relationship(
-        'Task', foreign_keys='Task.assigned_to_id',
-        backref='assignee', lazy='dynamic'
-    )
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -65,8 +60,6 @@ class Task(db.Model):
     # Relationships
     # A task belongs to one project
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
-    # A task can be assigned to one user
-    assigned_to_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return f'<Task {self.title}>'
