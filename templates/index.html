@@ -1,12 +1,12 @@
 {% extends "master.html" %} {% block content %}
 <div class="jumbotron text-center">
-    <div class="text-center mb-5">
+  {% if current_user.is_authenticated %}
+  <div class="text-center mb-5">
     <img
       src="{{ url_for('static', filename='images/logo-with-text.png') }}"
       alt="CheckMate Logo"
       class="main-logo"
     />
-  {% if current_user.is_authenticated %}
   <h1 class="display-4">Welcome back, {{ current_user.username }}!</h1>
   <p class="lead">You are logged in.</p>
   <hr class="my-4" />
