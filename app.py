@@ -36,6 +36,11 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 
+# Configure the default login message and its category
+login_manager.login_message = "Please log in to access this page."
+login_manager.login_message_category = "warning"
+
+
 # User Loader
 @login_manager.user_loader
 def load_user(user_id):
@@ -201,8 +206,6 @@ def add_task(project_id):
         flash("You do not have permission to add tasks to this project.", "danger")
         return redirect(url_for('dashboard'))
 
-    users = User.query.all()
-
     if request.method == 'POST':
         title = request.form.get('title')
         description = request.form.get('description')
@@ -243,8 +246,6 @@ def edit_task(task_id):
     if task.project.user_id != current_user.id:
         flash("You do not have permission to edit this task.", "danger")
         return redirect(url_for('dashboard'))
-
-    users = User.query.all()
 
     if request.method == 'POST':
         task.title = request.form.get('title')
