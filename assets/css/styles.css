@@ -1,223 +1,163 @@
-/* Custom Styles for CheckMate */
-
 /* Import Google Fonts for the Checkmate Theme */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto+Slab:wght@400;700&display=swap");
 
 /* CheckMate Colour Scheme Variables */
 :root {
   /* Core Neutrals */
-  --color-wild-sand: #f6f6f6; /* Wild Sand */
-  --color-mercury: #e8e8e8; /* Mercury */
-  --color-silver: #bdbdbd; /* Silver */
-  --color-boulder: #757575; /* Boulder */
-  --color-limed-spruce: #3645f; /* Limed Spruce */
+  --color-wild-sand: #f6f6f6;
+  --color-mercury: #e8e8e8;
+  --color-silver: #bdbdbd;
+  --color-boulder: #757575;
+  --color-limed-spruce: #36454f; 
   /* Strategic Accents */
-  --color-mirage: #121a22; /* Mirage */
-  --color-primary-action-blue: #4682b4; /* Steel Blue */
-  --color-success-green: #2e8b57; /* Sea Green */
-  --color-warning-yellow: #ffd700; /* Gold */
-  --color-danger-red: #b22222; /*Firebrick */
+  --color-mirage: #121a22;
+  --color-primary-action-blue: #4682b4;
+  --color-success-green: #2e8b57;
+  --color-warning-yellow: #ffd700;
+  --color-danger-red: #b22222;
 }
 
+/* Set the base font family and background color for the entire body */
 body {
-  font-family: "Inter", sans-serif;
-  background-color: var(--color-wild-sand);
-  color: var(--color-limed-spruce);
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-wild-sand);
+    color: var(--color-mirage);
 }
 
-/* Navbar Styles */
+/* Navbar */
+/* Style the main navigation bar */
 .navbar {
-  background-color: var(--color-mirage);
-  color: var(--color-wild-sand);
-  box-shadow: 0 2px 4px var(--color-limed-spruce);
-  margin-bottom: 2rem;
+    background-color: var(--color-card-bg-color, #ffffff);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Adds a subtle shadow for depth */
+    padding: 1rem 2rem;
+    margin-bottom: 2rem;
 }
 
-.navbar-brand,
+/* Style the brand and main navigation links */
+.navbar-brand, .nav-link {
+    font-family: 'Roboto Slab', serif; /* Use a different font for headings/branding */
+    font-weight: 700;
+    color: var(--color-limed-spruce);
+}
+
+/* Style the navigation links for a different look */
 .nav-link {
-  font-family: "Roboto Slab", serif;
-  font-weight: 700;
-  color: var(--color-wild-sand) !important;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--color-mirage);
+    transition: color 0.2s ease-in-out; /* Smooth color change on hover */
 }
 
+/* Change link color on hover */
 .nav-link:hover {
-  color: var(--color-primary-action-blue) !important;
+    color: var(--color-primary-action-blue);
 }
 
-/* Main Container and Page Titles */
-.container {
-  max-width: 1200px;
+/* Buttons */
+/* General button styling for all button types */
+.btn {
+    border-radius: 8px; /* Rounded corners for all buttons */
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.2s ease-in-out; /* Smooth transition for hover effects */
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Roboto Slab", serif;
-  font-weight: 700;
-  color: var(--color-limed-spruce);
+/* Hover effect for all buttons */
+.btn:hover {
+    transform: translateY(-2px); /* Lifts the button slightly */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.page-header {
-  border-bottom: 2px solid var(--color-mercury);
-  padding-bottom: 1rem;
-  margin-bottom: 2rem;
-}
-
-/* Card and Form Styling */
-.card {
-  border-radius: 0.5rem;
-  border: 1px solid var(--color-mercury);
-  box-shadow: 0 4px 8px var(--color-limed-spruce);
-  transition: transform 0.2s, box-shadow 0.2s;
-  background-color: #ffffff; /* White card background for contrast */
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px var(--color-limed-spruce);
-}
-
-.card-header {
-  background-color: var(--color-limed-spruce);
-  color: var(--color-wild-sand);
-  font-family: "Roboto Slab", serif;
-  font-weight: 700;
-  border-radius: 0.5rem 0.5rem 0 0;
-  border-bottom: none;
-}
-
-.form-control {
-  border-radius: 0.25rem;
-  border: 1px solid var(--color-silver);
-  box-shadow: none;
-}
-
-/* Button Styling */
+/* Primary button specific styles */
 .btn-primary {
-  background-color: var(--color-primary-action-blue);
-  border-color: var(--color-primary-action-blue);
-  font-weight: 500;
-  border-radius: 0.25rem;
-  transition: background-color 0.2s, border-color 0.2s;
+    background-color: var(--color-primary-action-blue);
+    border-color: var(--color-primary-action-blue);
 }
 
+/* Hover effect for primary buttons */
 .btn-primary:hover {
-  background-color: #357bd8; /* Lighter Blue that Primary Action Blue */
-  border-color: #357bd8; /* Lighter Blue that Primary Action Blue */
+    box-shadow: 0 4px 12px rgba(70, 130, 180, 0.3);
 }
 
-/* Specific button styles for actions */
+/* Outline primary button styles */
 .btn-outline-primary {
-  color: var(--color-primary-action-blue);
-  border-color: var(--color-primary-action-blue);
-  transition: background-color 0.2s, color 0.2s;
+    color: var(--color-primary-action-blue);
+    border-color: var(--color-primary-action-blue);
 }
 
+/* Hover effect for outline primary buttons */
 .btn-outline-primary:hover {
-  background-color: var(--color-primary-action-blue);
-  color: var(--color-mercury);
+    background-color: var(--color-primary-action-blue);
+    color: var(--color-wild-sand);
 }
 
-.btn-outline-danger {
-  color: var(--color-danger-red);
-  border-color: var(--color-danger-red);
-  transition: background-color 0.2s, color 0.2s;
+/* Danger button specific styles */
+.btn-danger, .btn-outline-danger {
+    border-radius: 8px;
 }
 
-.btn-outline-danger:hover {
-  background-color: var(--color-danger-red);
-  color: var(--color-mercury);
+/* Hover effect for danger buttons */
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(178, 34, 34, 0.3);
 }
 
-/* Alert Messages */
-.alert {
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px var(--color-limed-spruce);
-  border-width: 1px;
-  border-style: solid;
-  font-weight: 500;
+/* Cards */
+/* General styling for all cards (projects, tasks, etc.) */
+.card {
+    border: 1px solid var(--color-mercury);
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+    transition: all 0.2s ease-in-out; /* Smooth transition for hover */
+    background-color: var(--color-card-bg-color, #ffffff);
 }
 
-.alert-success {
-  background-color: var(--color-wild-sand);
-  color: var(--color-success-green);
-  border-color: var(--color-success-green);
+/* Hover effect for cards */
+.card:hover {
+    transform: translateY(-5px); /* Lifts the card slightly */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
-.alert-danger {
-  background-color: var(--color-wild-sand);
-  color: var(--color-danger-red);
-  border-color: var(--color-danger-red);
+/* Forms */
+/* Styling for all form inputs and selects */
+.form-control, .form-select {
+    border-radius: 8px; /* Rounded corners for a sleek look */
+    border: 1px solid var(--color-mercury);
+    padding: 0.75rem 1rem;
+    transition: border-color 0.2s ease-in-out; /* Smooth transition on focus */
 }
 
-.alert-info {
-  background-color: var(--color-wild-sand);
-  color: var(--color-primary-action-blue);
-  border-color: var(--color-primary-action-blue);
+/* Focus state for form inputs */
+.form-control:focus, .form-select:focus {
+    border-color: var(--color-primary-action-blue);
+    box-shadow: 0 0 0 0.25rem rgba(70, 130, 180, 0.25); /* Focus highlight */
 }
 
-/* Kanban Task Board Styling */
-.kanban-column-header {
-  font-family: "Roboto Slab", serif;
-  font-weight: 700;
-  font-size: 1.25rem;
-  padding: 0.75rem 1.25rem;
-  background-color: var(--color-mercury);
-  border-bottom: 2px solid var(--color-silver);
-  margin-bottom: 1rem;
-  border-radius: 0.5rem 0.5rem 0 0;
+/* Kanban Task Board */
+/* Styling for the main kanban board columns */
+.kanban-column {
+    background-color: var(--color-mercury);
+    padding: 1.25rem;
+    border-radius: 12px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05); /* Inner shadow for depth */
 }
 
+/* Individual task card styles within the kanban board */
 .task-card {
-  cursor: pointer;
-  background-color: var(--color-mercury);
-  border-left: 5px solid var(--color-primary-action-blue);
-  margin-bottom: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease-in-out;
 }
 
-.task-card h6 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--color-limed-spruce);
+/* Hover effect for task cards */
+.task-card:hover {
+    transform: scale(1.02); /* Makes the card slightly larger */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.task-card small {
-  font-size: 0.75rem;
-  color: var(--color-boulder);
-}
-
-/* Project Cards on Dashboard */
-.project-card {
-  background-color: var(--color-mercury);
-  border-left: 5px solid var(--color-primary-action-blue);
-  margin-bottom: 1.5rem;
-}
-
-/* Status-specific task card styling for visual cues */
-.task-card[data-status="To Do"] {
-  border-left-color: var(--color-boulder);
-}
-
-.task-card[data-status="In Progress"] {
-  border-left-color: var(--color-primary-action-blue);
-}
-
-.task-card[data-status="Done"] {
-  border-left-color: var(--color-success-green);
-}
-
-/* Profile page styling */
-.profile-card {
-  background-color: var(--color-mercury);
-}
-
-.profile-card img {
-  border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border: 3px solid var(--color-primary-action-blue);
+/* Muted text color for a consistent look */
+.text-muted {
+    color: var(--color-boulder) !important;
 }
