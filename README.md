@@ -336,6 +336,88 @@ You can manage your personal information from your profile page.
 
 ## 7. Testing
 
+**1. Comprehensive Manual Testing:**
+
+The CheckMate application was thoroughly tested across a variety of browsers and devices to ensure functionality, responsiveness, and accurate data handling for user authentication and project management.
+
+**Browsers and Devices Tested:**
+
+- **Chrome (Version 140.0.7339.5 (Official Build) (64-bit)):** Used as the primary testing browser.
+- **Chrome Developer Tools:** Employed to simulate various screen sizes and mobile devices, including:
+  - Common mobile device resolutions (e.g., iPhone, Android).
+  - Tablet screen sizes.
+  - Various desktop viewport widths.
+
+**Testing Conducted:**
+
+- **User Authentication & Profile Management Testing:**
+  - Valid Data Inputs: Tested registration, login, and profile editing with valid user data.
+  - Edge Cases for Credentials: Tested login with incorrect passwords and non-existent usernames.
+  - Validation Errors: Confirmed that registration and profile editing correctly prevent the use of duplicate usernames and email addresses.
+  - Session Management: Verified that logging out correctly ends the user session and redirects to the home page.
+  - Password Changes: Tested the password change functionality, ensuring the user must provide the correct current password and that the new password and confirmation match.
+
+- **Project Management Testing:**
+  - Create & View: Confirmed that new projects can be added from the dashboard and are displayed correctly.
+  - Project Details: Verified that navigating to a project's details page displays the correct information and lists its tasks.
+  - Edit & Delete: Ensured that projects can be edited and deleted, and that the deletion process includes a confirmation prompt.
+
+- **Task Management Testing:**
+  - Create Task: Confirmed that new tasks can be added to a project with all details (title, description, due date, status, priority) successfully saved.
+  - Edit & Delete: Verified that tasks can be edited and deleted individually from the project details page, each with a confirmation prompt.
+  - Data Integrity: Checked that deleting a project correctly removes all associated tasks.
+
+- **Responsiveness & Layout Testing:**
+  - Viewport Adaptation: Tested the application's layout across various screen sizes using Chrome Developer Tools, ensuring elements rearrange and resize gracefully.
+  - Readability on Mobile: Verified that all text and form inputs remain readable and usable on smaller screens without excessive scrolling or truncation.
+  - Button Accessibility: Ensured all buttons and interactive elements are visible and easily tappable on all device sizes.
+  - Navigation Menu: Confirmed the navigation bar collapses into a hamburger menu on smaller screens and functions correctly.
+
+- **Accessibility Testing:**
+  - Keyboard Navigation: Mapped the precise focus order of all interactive elements using the Tab key, ensuring a logical and intuitive sequence throughout the application.
+  - Labels and Descriptions: Confirmed all form input fields have clear and descriptive labels (`<label>` tags), which is essential for screen reader users.
+
+**Bug Evaluation and Fixes:**
+
+- **Bug 1: Incorrect Delete Confirmation:**
+  - Description: The delete buttons for projects and tasks used a JavaScript `confirm()` dialog.
+  - Fix: Acknowledged the use of `confirm()` in the current code but noted that a custom modal dialog would provide a better user experience and should be considered for a future update. The current functionality was verified to work correctly.
+
+- **Bug 2: Missing Due Date for Tasks:**
+  - Description: If a task was created without a due date, the p`roject_details.html` template would encounter an error when trying to display it.
+  - Fix: Added a conditional check (`if task.due_date else 'N/A'`) in the `project_details.html` template to gracefully handle and display `N/A` for tasks without a due date.
+
+**Unfixed Bugs:**
+
+At the present time, all found bugs have been fixed.
+
+**Screenshots and User Story Fulfillment:**
+
+- **Screenshot 1: Dashboard with Projects**
+  [Screenshot of the CheckMate dashboard showing multiple project cards](assets/readme/usf-1.png)
+  - **User Story Fulfilled:** "As a user, I want to see an overview of all my projects so I can easily choose which one to work on."
+  - **Explanation:** This screenshot highlights the main dashboard, showcasing the user-friendly interface with project cards that provide a quick overview of all ongoing projects. It demonstrates how users can easily get started with their work.
+
+- **Screenshot 2: Project Details with Tasks**
+  [Screenshot of a project's details page, displaying the project description and a list of its tasks](assets/readme/usf-2.png)
+  - **User Story Fulfilled:** "As a user, I want to view all the tasks for a specific project so I can track my progress and see what needs to be done."
+  - **Explanation:** This screenshot shows the project details view, which organises and displays all tasks belonging to a single project. It clearly shows the task's title, priority, and due date, fulfilling the need for detailed progress tracking.
+
+- **Screenshot 3: Add New Task Form**
+  [Screenshot of the form to add a new task to a project](assets/readme/usf-3.png)
+  - **User Story Fulfilled:** "As a user, I want to easily add new tasks to a project so I can detail the work that needs to be done."
+  - **Explanation:** This screenshot illustrates the dedicated form for creating a new task, with all the necessary fields for a title, description, due date, status, and priority.
+
+- **Screenshot 4: User Profile Page**
+  [Screenshot of the User Profile page displaying personal details and action buttons](assets/readme/usf-4.png)
+  - **User Story Fulfilled:** "As a user, I want to view and manage my personal information so I can keep my profile up to date."
+  - **Explanation:** This screenshot shows the user's personal profile page, which displays their account information and provides prominent buttons to edit their profile details or change their password, giving them full control over their account.
+
+- **Screenshot 5: Delete Confirmation**
+  [Screenshot showing a browser's `confirm()` dialog when a user attempts to delete a project](assets/readme/usf-5.png)
+  - **User Story Fulfilled:** "As a user, I want to be prompted for confirmation before deleting a project or task to prevent accidental data loss."
+  - **Explanation:** This screenshot captures the confirmation dialog that appears when a user clicks the delete button, proving that the application has a safeguard in place to prevent accidental deletion of important data.
+
 ## 8. Deployment
 
 ## 9. Credits
