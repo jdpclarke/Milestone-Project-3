@@ -299,6 +299,41 @@ You will need the following installed on your sysem:
 
 ## 6. Usage
 
+CheckMate is a straightforward project management tool designed to help you organize your personal projects and tasks. This guide will walk you through the key features and how to use them effectively.
+
+**1. Getting Started, (Registration & Login):**
+
+- **Register:** If you are a new user, click the "Register" button on the home page. Fill out the form with your personal details, a unique username, and a password to create your account.
+- **Login:** If you already have an account, click "Login". Enter your username and password to access your dashboard.
+
+**2. Managing Projects:**
+
+The dashboard is the central hub for all your projects.
+
+- **View Projects:** Upon logging in, you will see a list of all your existing projects, each displayed in its own card. Each card shows the project name, description, and creation date.
+- **Add a New Project:** Click the "Add New Project" button on the dashboard. You will be taken to a form where you can enter a name and a description for your new project. Click "Add Project" to save it.
+- **View Project Details:** Click the "View Details" button on any project card to see a list of all the tasks associated with that specific project.
+- **Edit a Project:** From the project details page, click "Edit Project" to change the project's name or description.
+- **Delete a Project:** From the project details page, click "Delete Project" to permanently remove the project and all of its associated tasks. A confirmation dialog will appear to prevent accidental deletion.
+
+**3. Managing Tasks:**
+
+Tasks are the individual to-do items within a project.
+
+- **View Projects:** Upon logging in, you will see a list of all your existing projects, each displayed in its own card. Each card shows the project name, description, and creation date.
+- **Add a New Project:** Click the "Add New Project" button on the dashboard. You will be taken to a form where you can enter a name and a description for your new project. Click "Add Project" to save it.
+- **View Project Details:** Click the "View Details" button on any project card to see a list of all the tasks associated with that specific project.
+- **Edit a Project:** From the project details page, click "Edit Project" to change the project's name or description.
+- **Delete a Project:** From the project details page, click "Delete Project" to permanently remove the project and all of its associated tasks. A confirmation dialog will appear to prevent accidental deletion.
+
+**4. Editing Your Profile:**
+
+You can manage your personal information from your profile page.
+
+- **Access Profile:** Click your username in the navigation bar to go to your profile.
+- **Edit Profile:** On the profile page, click "Edit Profile" to update your first name, last name, username, or email address.
+- **Change Password:** On the profile page, click "Change Password" to update your account password. You will need to enter your current password before setting a new one.
+
 ## 7. Testing
 
 ## 8. Deployment
