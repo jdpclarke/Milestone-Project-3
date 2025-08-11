@@ -59,7 +59,8 @@ class Task(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     # Relationships
     # A task belongs to one project
-    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey(
+        'project.id'), nullable=False)
 
     def __repr__(self):
         return f'<Task {self.title}>'

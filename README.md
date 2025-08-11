@@ -418,6 +418,45 @@ At the present time, all found bugs have been fixed.
   - **User Story Fulfilled:** "As a user, I want to be prompted for confirmation before deleting a project or task to prevent accidental data loss."
   - **Explanation:** This screenshot captures the confirmation dialog that appears when a user clicks the delete button, proving that the application has a safeguard in place to prevent accidental deletion of important data.
 
+**2. Automated Testing:**
+
+- **HTML and CSS Validation (W3C):**
+    The ApprentiCalc's HTML was validated using the [W3C Markup Validation Service](https://validator.w3.org/) and the CSS was validated using the [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/).
+
+    The results for each main page can be found below:
+  - [ApprentiCalc Home Page HTML](https://validator.w3.org/nu/?doc=https%3A%2F%2Fjdpclarke.github.io%2FMilestone-Project-2%2Findex.html)
+  - [ApprentiCalc Calculator Page HTML](https://validator.w3.org/nu/?doc=https%3A%2F%2Fjdpclarke.github.io%2FMilestone-Project-2%2Fotjcalc.html)
+  - [ApprentiCalc CSS](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fjdpclarke.github.io%2FMilestone-Project-2%2Findex.html&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
+
+    This ensured that the code adhered to web standards and was free from syntax errors. Any identified errors were corrected to improve the tool's overall quality and consistency.
+
+    W3C Markup Validation highlights info messages relating to "Trailing slash on void elements has no effect and interacts badly with unquoted attribute values." These often occur due to auto-formatters (like Prettier); attempts to remove them may result in the formatter re-introducing them.
+
+    W3C CSS Validation highlightswarnings related to Bootstrap CSS, which are typically outside the developer's direct control. Warnings referring to custom CSS variables are often noted by the validator, as it acknowledges that CSS variables introduce a level of dynamism beyond the scope of its static analysis.
+
+- **Performance, Best Practices, and SEO Testing (Lighthouse):** [Lighthouse Testing Results](assets/readme/lighthouse-results-calc.pdf)
+  - Lighthouse, within the Chrome Developer Tools, was used to evaluate the ApprentiCalc's performance, best practices, and SEO. This testing provided insights into areas for optimization, such as script optimization and page load speed. The results of the Lighthouse testing would be used to make targeted improvements to the tool's performance and search engine visibility. While the mobile analysis typically provides a strong score, the desktop version highlights opportunities for further enhancement.
+
+  - **Lighthouse Performance Analysis:**
+
+    A Lighthouse audit was conducted, revealing a strong performance score of 95 and excellent Best Practices and SEO of both 100. However, the audit highlighted opportunities to improve the Largest Contentful Paint (LCP), which was 1.3 seconds, and optimize image handling. Lighthouse suggested:
+
+    - Preconnect to required origins
+    - Serving images in next-gen formats.
+    - Properly sizing and efficiently encoding images.
+    - Eliminating render-blocking resources.
+
+    These optimizations would enhance performance, particularly by reducing the LCP, and improve user experience. However, upon investigation, this was relating to a lot of the Bootstrap CSS which is outside of the developers control.
+
+  - **Accessibility Considerations:**
+
+      The accessibility score of 96 indicates a contrast ratio issue, specifically with the body section on the website and the secondary colour in the CSS . This could be addressed to improve accessibility for all users, especially those with visual impairments. Further investigation into color contrast ratios could be conducted, and alternative color combinations explored to meet WCAG guidelines. At this moment in time, there are no plans to resolve this issue as whilst this presents a lower than desired score, the contrast is still sufficient and functional.
+  
+  - **Overall:**
+
+      ApprentiCalc generally performs well in automated audits, demonstrating strong SEO and a high performance score. However, continuous improvements in metrics like LCP and accessibility are recommended. Addressing identified contrast ratio issues and optimizing any present assets could enhance the tool's overall quality and user experience. While the tool is functional, these improvements could ensure a more inclusive and performant web experience.
+
+
 ## 8. Deployment
 
 ## 9. Credits

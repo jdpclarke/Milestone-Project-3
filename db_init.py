@@ -1,11 +1,11 @@
 # db_init.py
 
+from sqlalchemy import text
+from db import db
+from app import app
 from dotenv import load_dotenv
 load_dotenv()
 
-from app import app
-from db import db
-from sqlalchemy import text
 
 # Ensure the Flask app context is pushed
 with app.app_context():
