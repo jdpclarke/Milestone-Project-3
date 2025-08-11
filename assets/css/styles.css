@@ -89,14 +89,14 @@ body {
 
 /* Custom styling for card headers */
 .card-header-custom {
-    background-color: var(--color-limed-spruce); /* A dark gray background */
-    color: var(--color-wild-sand); /* White text */
-    padding: 1rem; /* Add some padding for spacing */
+  background-color: var(--color-limed-spruce); /* A dark gray background */
+  color: var(--color-wild-sand); /* White text */
+  padding: 1rem; /* Add some padding for spacing */
 }
 
 /* Ensure the heading inside the card header also has a white color */
 .card-header-custom h4 {
-    color: var(--color-wild-sand);
+  color: var(--color-wild-sand);
 }
 
 /* Buttons */
@@ -185,42 +185,29 @@ body {
 
 /* Alert Messages */
 .alert {
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-width: 1px;
-  border-style: solid;
-  font-weight: 500;
-  margin-bottom: 1.5rem;
+  border-left: 5px solid;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .alert-success {
-  background-color: color-mix(
-    in srgb,
-    var(--color-success-green) 20%,
-    var(--color-wild-sand)
-  );
-  color: var(--color-success-dark);
-  border-color: var(--color-success-dark);
+  background-color: #e0f2e8; /* Lighter success green */
+  border-color: #2e8b57;
+  color: var(--color-mirage);
 }
 
 .alert-danger {
-  background-color: color-mix(
-    in srgb,
-    var(--color-danger-red) 20%,
-    var(--color-wild-sand)
-  );
-  color: var(--color-danger-dark);
-  border-color: var(--color-danger-dark);
+  background-color: #f7e0e0; /* Lighter danger red */
+  border-color: #b22222;
+  color: var(--color-mirage);
 }
 
 .alert-info {
-  background-color: color-mix(
-    in srgb,
-    var(--color-warning-yellow) 20%,
-    var(--color-wild-sand)
-  );
-  color: var(--color-warning-dark);
-  border-color: var(--color-warning-dark);
+  background-color: #fff8e0; /* Lighter warning yellow */
+  border-color: #ffd700;
+  color: var(--color-mirage);
 }
 
 /* Kanban Task Board */
