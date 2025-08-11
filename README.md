@@ -165,9 +165,9 @@ All images used on the website are optimised for web performance to ensure fast 
   - Provides visual indicators for task status and completion, making it easy to see progress at a glance.
 
 - **Efficient Task Filtering and Prioritisation:**
-  - Offers advanced filtering options to quickly narrow down task lists by criteria such as status and priority.
+  - Offers dynamic layout to filter projects in to their statuses.
   - Includes sorting capabilities to organise tasks by due date, priority, or creation date for efficient prioritisation.
-  - Ensures immediate and dynamic updates to the displayed task list upon applying filters or sorting.
+  - Ensures immediate and dynamic updates to the displayed task list upon applying sorting.
 
 - **Intuitive User Interface and Feedback:**
   - Implements clear and immediate validation for all input fields, providing consolidated alerts for missing mandatory information or invalid data.
@@ -177,9 +177,41 @@ All images used on the website are optimised for web performance to ensure fast 
   - The application layout seamlessly adjusts to various screen sizes aWnd orientations, guaranteeing optimal usability across desktops, laptops, tablets, and mobile phones.
   - All interactive elements and content displays are designed to be functionally accessible and clearly visible on diverse devices.
   - Adheres to standard web development practices to ensure basic accessibility (e.g., clear labels, sufficient colour contrast, keyboard navigability for interactive components).
-  - Maintains a clear separation of HTML structure, CSS styling, and JavaScript logic in distinct files for improved maintainability and organisation.
+  - Maintains a clear separation of HTML structure, CSS styling, and Python logic in distinct files for improved maintainability and organisation.
 
 ## 4. Technology Used
+
+CheckMate, a comprehensive web platform for personal project and task management, was developed using a full-stack approach with a focus on efficiency, security, and a user-friendly interface. The application’s structure leverages a blend of backend frameworks and frontend libraries to deliver a seamless user experience.
+
+- **Python & Flask:** The application's backend is built on Python using the Flask micro-framework. Flask is responsible for all server-side logic, including handling HTTP requests, routing to the correct pages, processing form data, and managing the application's core business logic for projects and tasks.
+
+- **Flask-Login:** This Flask extension provides robust user session management. It handles user authentication, including logging in, logging out, and protecting specific routes to ensure only authenticated users can access them.
+
+- **SQLAlchemy & Flask-SQLAlchemy:** All persistent data—including user profiles, projects, and tasks—is stored in a PostgreSQL relational database. SQLAlchemy serves as the Object-Relational Mapper (ORM), allowing the application to interact with the database using Python objects instead of raw SQL. Flask-SQLAlchemy integrates this ORM into the Flask application seamlessly.
+
+- **Werkzeug:** As the underlying library for Flask, Werkzeug handles crucial utilities like password hashing to ensure passwords are not stored in plain text.
+
+- **psycopg2-binary:** This is the PostgreSQL database adapter that allows the Python backend to connect to and communicate with the database.
+
+- **python-dotenv:** This library is used for managing environment variables. It loads configuration values, such as the database URI and secret key, from a file, which is a standard practice for separating configuration from code and enhancing security.
+
+- **Jinja:** The application's frontend templates are rendered using the Jinja templating engine. Jinja allows for the dynamic generation of HTML content by inserting data from the Python backend, enabling user-specific pages and content.
+
+- **HTML5:** HTML5 is the foundational markup language used to structure the application's web pages. Semantic HTML elements are employed to create a logical, accessible, and maintainable document structure.
+
+- **CSS3:** CSS3 is used for all custom styling, including defining the application's color palette, typography, and specific visual design elements.
+
+- **Bootstrap 5:** The entire frontend is built on the Bootstrap 5 framework. This provides a responsive, mobile-first design, ensuring that the application's layout, components, and usability remain consistent across various device sizes and screen orientations.
+
+- **Font Awesome:** Font Awesome icons are integrated throughout the user interface to improve visual clarity and user experience. Icons are used on buttons and in navigation to provide intuitive visual cues for different actions and content.
+
+- **Heroku:** The application is configured for deployment on the Heroku cloud platform.
+
+- **Gunicorn:** Gunicorn is specified as the production-ready WSGI HTTP Server. It is responsible for running the Flask application in a robust, multi-process environment.
+
+- **requirements.txt:** This file lists all the Python dependencies required for the application to run. When deployed, this file is used to automatically install the necessary libraries, ensuring the production environment matches the development environment.
+
+- **CDN (Content Delivery Network):** External libraries, such as Bootstrap's CSS, are loaded from a CDN. This optimises loading times by utilizing geographically distributed servers to deliver content efficiently.
 
 ## 5. Installation
 
