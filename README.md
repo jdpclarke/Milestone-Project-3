@@ -290,6 +290,13 @@ You will need the following installed on your sysem:
 
     - The application should now be running. Open your web browser and navigate to `http://127.0.0.1:5000` to view the website.
 
+**Note:**
+
+- CheckMate is a dynamic web application and requires the development server to be running to function. You cannot open the HTML files directly in your browser.
+- To stop the server, press Ctrl + C in your terminal.
+- The .env file is crucial for storing your database credentials and secret key securely. Do not commit this file to your public repository.
+- If you make changes to the database models (models.py), you will need to re-run python3 db_init.py to update your database schema.
+
 ## 6. Usage
 
 ## 7. Testing
