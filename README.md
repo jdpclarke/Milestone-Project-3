@@ -450,6 +450,90 @@ At the present time, all found bugs have been fixed.
 
 ## 8. Deployment
 
+This project was deployed using the Heroku platform, a Platform as a Service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud.
+
+**Heroku Deployment:**
+
+To deploy this project to Heroku, the following steps were taken:
+
+1. **Create a Heroku Account and App:** A new account was created on `https://www.heroku.com`, and a new app was created through the dashboard.
+2. **Install Heroku CLI:** The Heroku Command Line Interface (CLI) was installed to enable interaction with Heroku from the terminal.
+3. **Log in to Heroku CLI:** The command `heroku login` was used to authenticate the CLI with the Heroku account.
+4. **Link the Heroku App to the Local Repository:** The local Git repository was linked to the Heroku app using `heroku git:remote -a your-app-name`.
+5. **Create a Procfile:** A `Procfile` was created in the root directory to tell Heroku how to run the web application. The file contains the line web: `gunicorn --bind 0.0.0.0:$PORT app:app`.
+6. **Set Environment Variables:** The `SECRET_KEY` and `DATABASE_URL` environment variables were set in Heroku's config vars.
+7. **Push to Heroku:** The code was deployed by pushing the `main` branch to Heroku using `git push heroku main`.
+8. **Initialise the Database:** After deployment, the database was initialized by running `heroku run python db_init.py` to create the necessary tables.
+
+**GitHub Pages Deployment:**
+
+The project was deployed to GitHub Pages using the following steps:
+
+1. **Log in to GitHub and locate the GitHub Repository:** Navigate to the project's repository on GitHub: [https://github.com/jdpclarke/Milestone-Project-3.git](https://github.com/jdpclarke/Milestone-Project-3.git)
+2. **Access Repository Settings:** At the top of the repository (not the top of the page), locate the "Settings" button on the menu.
+3. **Navigate to GitHub Pages Section:** Scroll down the Settings page until you find the "Pages" section.
+4. **Select Deployment Branch:** Under "Source," click the dropdown menu and select the branch you wish to deploy (usually "main" or "master").
+5. **GitHub Pages Deployment:** The page will automatically refresh, and GitHub Pages will deploy the site from the selected branch.
+6. **Access the Deployed Site:** Scroll back down the page to the "Pages" section to find the published site link.
+
+**Forking the GitHub Repository:**
+
+To create a copy of this repository on your own GitHub account, allowing you to view and modify the code without affecting the original, follow these steps:
+
+1. **Log in to GitHub and locate the GitHub Repository:** Navigate to the project's repository on GitHub: [https://github.com/jdpclarke/Milestone-Project-3.git](https://github.com/jdpclarke/Milestone-Project-3.git)
+2. **Fork the Repository:** At the top of the repository (not the top of the page), just above the "Settings" button, locate the "Fork" button and click it.
+3. **Your Forked Copy:** You will now have a copy of the original repository in your GitHub account.
+
+**Making a Local Clone:**
+
+To download a local copy of this repository to your computer, follow these steps:
+
+1. **Log in to GitHub and locate the GitHub Repository:** Navigate to the project's repository on GitHub: [https://github.com/jdpclarke/Milestone-Project-3.git](https://github.com/jdpclarke/Milestone-Project-3.git)
+2. **Clone or Download:** Under the repository name, click "Code."
+3. **Copy HTTPS Link:** Under "Clone with HTTPS," copy the provided link.
+4. **Open Git Bash (or your terminal):** Open your Git Bash terminal (or your preferred terminal).
+5. **Change Directory:** Change the current working directory to the location where you want the cloned directory to be created using the `cd` command.
+6. **Clone the Repository:** Type `git clone` and then paste the URL you copied in Step 3. Press Enter.
+
+    ```bash
+    git clone [https://github.com/jdpclarke/Milestone-Project-3.git](https://github.com/jdpclarke/Milestone-Project-3.git)
+    ```
+
+7. **Local Clone Created:** Your local clone will be created in the specified directory.
+
 ## 9. Credits
 
+This CheckMate project was developed using a combination of publicly available resources, open-source libraries, and original content. Here is a more detailed breakdown of the credits:
+
+**Technologies and Libraries:**
+
+- Flask: The backend web framework for handling routing, requests, and templates.
+- Flask-SQLAlchemy: An ORM (Object-Relational Mapper) used to interact with the PostgreSQL database.
+- Flask-Login: Provides user session management, authentication, and login protection for routes.
+- Werkzeug: A WSGI utility library used by Flask for security, including password hashing.
+- Bootstrap 5: The front-end framework for responsive design and UI components.
+- Font Awesome: Provides the icons used throughout the application.
+- Gunicorn: A Python WSGI HTTP server used for deploying the application on Heroku.
+- psycopg2-binary: A PostgreSQL database adapter for Python.
+- python-dotenv: Used to manage environment variables for local development.
+
+**Assets:**
+
+- Logo: The CheckMate logo was created using an online logo maker.
+- Favicons: Favicons were generated using an online favicon generator.
+
+**Acknowledgements:**
+
+- Code Institute: The developer acknowledges the support and guidance provided by Code Institute throughout the project's development.
+- Community: The developer acknowledges the contributions of the open-source community for providing the tools, libraries, and resources used in this project.
+
 ## 10. Future Improvements
+
+CheckMate is a foundational tool, and several enhancements can be implemented to further improve its functionality and user experience.
+
+1. **Kanban Board View:** Implement a drag-and-drop Kanban board view on the dashboard and project details page to provide a more intuitive and visual way to manage tasks.
+2. **User Collaboration:** Add the ability for users to share projects with other registered users, allowing for real-time collaboration.
+3. **Task Management Features:** Add more advanced task features such as sub-tasks, comments, and file attachments.
+4. **Notifications:** Implement a notification system to alert users of upcoming deadlines or task updates.
+5. **Enhanced Profile:** Add more user profile features, such as a profile picture and the ability to customize dashboard layouts.
+6. **API Integration:** Create an API to allow CheckMate to integrate with other third-party services.
