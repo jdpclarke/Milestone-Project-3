@@ -71,7 +71,7 @@ body {
 
 /* Styling for the large logo on the main page */
 .main-logo {
-  max-width: 300px;
+  max-width: 250px;
   height: auto;
   display: block;
   margin-left: auto;
