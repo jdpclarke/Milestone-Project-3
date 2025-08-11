@@ -152,6 +152,8 @@ All images used on the website are optimised for web performance to ensure fast 
 
 ### Wireframes
 
+[Link to Wireframes](assets/readme/wireframes/)
+
 ## 3. Features
 
 - **Secure User Authentication and Profile Management:**
