@@ -215,6 +215,81 @@ CheckMate, a comprehensive web platform for personal project and task management
 
 ## 5. Installation
 
+To set up and run the CheckMate application locally, follow these steps.
+
+### PreRequisites
+
+You will need the following installed on your sysem:
+
+- Git
+- Python 3.8+
+- pip (Python's package installer)
+- PostgreSQL (with a user and a database created)
+
+### Steps
+
+1. **Clone the Repository**
+    - Open your terminal or command prompt.
+    - Navigate to the directory where you want to store the project.
+    - Execute the following command:
+
+        ```bash
+        git clone https://github.com/jdpclarke/Milestone-Project-3.git
+        ```
+
+2. **Navigate to the Project Directory:**
+    - Use the `cd` (change directory) command to enter the cloned project folder:
+
+        ```bash
+        cd Milestone-Project-3
+        ```
+
+3. **Set up a Virtual Environment**
+    - It is highly recommended to use a virtual environment to manage project dependencies. This isolates the project's packages from your system's global Python installation.
+
+        ```bash
+        # Create a virtual environment
+        python3 -m venv venv
+
+        # Activate the virtual environment
+        # On macOS and Linux:
+        source venv/bin/activate
+        # On Windows:
+        venv\Scripts\activate
+        ```
+
+4. **Install Dependencies**
+    - With your virtual environment activated, install all the required Python packages from the `requirements.txt` file.
+
+        ```bash
+        pip install -r requirements.txt
+        ```
+
+5. **Configure the Database**
+    - Create a PostgreSQL database and a user for the application.
+    - Create a new file named `.env` in the root directory of the project.
+    - Add the following lines to your `.env` file, replacing the placeholder values with your own database credentials and a secure secret key:
+
+        ```bash
+        DATABASE_URL=postgresql://user:password@localhost:5432/dbname
+        SECRET_KEY=your_secure_secret_key_here
+        ```
+
+    - Initialize the database tables by running the `db_init.py` script. This will create all the necessary tables for the `User`, `Project`, and `Task` models.
+
+        ```bash
+        python3 db_init.py
+        ```
+
+6. **Run the Application**
+    - Now you can start the Flask development server.
+
+        ```bash
+        python3 app.py
+        ```
+
+    - The application should now be running. Open your web browser and navigate to `http://127.0.0.1:5000` to view the website.
+
 ## 6. Usage
 
 ## 7. Testing
